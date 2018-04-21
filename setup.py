@@ -14,7 +14,7 @@ setup(name='scikit-tda',
       author_email='nathaniel.saul@wsu.edu',
       url='https://github.com/sauln/scikit-tda',
       license='MIT',
-      packages=['sktda'],
+    #   packages=['sktda'],
       include_package_data=True,
       install_requires=[
         # 'Cython', # Ripser isn't quite ready

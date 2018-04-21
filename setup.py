@@ -6,7 +6,7 @@ with open('README.md') as f:
     long_description = f.read()
 
 setup(name='scikit-tda',
-      version='0.0.1',
+      version='0.0.2',
       description='Topological Data Analysis for humans',
       long_description=long_description,
       long_description_content_type="text/markdown",	
@@ -14,14 +14,29 @@ setup(name='scikit-tda',
       author_email='nathaniel.saul@wsu.edu',
       url='https://github.com/sauln/scikit-tda',
       license='MIT',
-    #   packages=['sktda'],
+      packages=['sktda'],
       include_package_data=True,
       install_requires=[
-        # 'Cython', # Ripser isn't quite ready
-        # 'ripser',
+        # Common requirements
+        'numpy', 
+        'scipy', 
+        'scikit-learn',
+        'matplotlib',
+
+         # UMAP
+        'numba',
+        'umap-learn',
+
+        # Ripser
+        'Cython', 
+        'ripser',
+
+        # Persim
         'persim',
+
+        # Kepler Mapper
+        'pillow', # for some kmapper examples
         'kmapper',
-        'umap-learn'
       ],
       python_requires='!=3.1,!=3.2,!=3.3',
       classifiers=[

@@ -1,4 +1,5 @@
-# Skeleton of documentation
+Skeleton of documentation
+--------------------------
 
 This entire project hinges on quality documentation.  
 

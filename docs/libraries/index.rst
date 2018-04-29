@@ -1,3 +1,7 @@
+
+Information about libraries
+------------------------------
+
 Currently, we have Kepler Mapper, UMAP, Ripser and Persim. These provide facilities for
 
 - Mapper
@@ -11,3 +15,12 @@ What other aspects of TDA should be included?
 - Statistics on diagrams
 - Euler characteristic curves?
 - Support of other types of PH. Zigzig?
+
+
+.. toctree::
+    :hidden:
+
+    kepler-mapper/index
+    persim/index
+    umap/index
+    

@@ -3,10 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-|PyPI version| |Build Status| |Codecov| |DOI|
 
 KeplerMapper
 ===================
+
+|PyPI version| |Build Status| |Codecov| |DOI|
+
 
 
     Nature uses as little as possible of anything. - Johannes Kepler
@@ -20,9 +22,7 @@ Contents
 --------
 
 .. toctree::
-  :maxdepth: 2
 
-  Introduction <index>
   about
   setup
   usage

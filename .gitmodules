@@ -1,0 +1,12 @@
+[submodule "libraries/ripser"]
+	path = libraries/ripser
+	url = https://github.com/ctralie/ripser
+[submodule "libraries/persim"]
+	path = libraries/persim
+	url = https://github.com/sauln/persim
+[submodule "libraries/umap"]
+	path = libraries/umap
+	url = https://github.com/lmcinnes/umap
+[submodule "libraries/kepler-mapper"]
+	path = libraries/kepler-mapper
+	url = https://github.com/mlwave/kepler-mapper

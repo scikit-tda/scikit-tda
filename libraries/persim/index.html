@@ -70,7 +70,6 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Information about libraries</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../kepler-mapper/index.html">KeplerMapper</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Persim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../umap/index.html">UMAP</a></li>
 </ul>
 </li>
@@ -118,55 +117,46 @@
             
   <div class="section" id="persim">
 <h1>Persim<a class="headerlink" href="#persim" title="Permalink to this headline">¶</a></h1>
-<p>[![PyPI version](<a class="reference external" href="https://badge.fury.io/py/persim.svg)](https://badge.fury.io/py/persim">https://badge.fury.io/py/persim.svg)](https://badge.fury.io/py/persim</a>)
-[![Build Status](<a class="reference external" href="https://travis-ci.org/sauln/persim.svg?branch=master)](https://travis-ci.org/sauln/persim">https://travis-ci.org/sauln/persim.svg?branch=master)](https://travis-ci.org/sauln/persim</a>)
-[![codecov](<a class="reference external" href="https://codecov.io/gh/sauln/persim/branch/master/graph/badge.svg)](https://codecov.io/gh/sauln/persim">https://codecov.io/gh/sauln/persim/branch/master/graph/badge.svg)](https://codecov.io/gh/sauln/persim</a>)
-[![License: MIT](<a class="reference external" href="https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT">https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT</a>)</p>
-<p>Persim is a Python implementation of Persistence Images as first introduced in [<a class="reference external" href="https://arxiv.org/abs/1507.06217](https://arxiv.org/abs/1507.06217">https://arxiv.org/abs/1507.06217](https://arxiv.org/abs/1507.06217</a>).</p>
-<p>It is designed to interface with [Ripser](<a class="reference external" href="https://github.com/sauln/ripser">https://github.com/sauln/ripser</a>), though any persistence diagram should work fine.</p>
+<p><a class="reference external" href="https://badge.fury.io/py/persim"><img alt="PyPI version" src="https://badge.fury.io/py/persim.svg" /></a> <a class="reference external" href="https://travis-ci.org/sauln/persim"><img alt="Build Status" src="https://travis-ci.org/sauln/persim.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/sauln/persim"><img alt="Codecov" src="https://codecov.io/gh/sauln/persim/branch/master/graph/badge.svg" /></a></p>
+<p>Persim is a Python implementation of Persistence Images as first introduced in <a class="reference external" href="https://arxiv.org/abs/1507.06217">https://arxiv.org/abs/1507.06217</a>.</p>
+<p>It is designed to interface with <a class="reference external" href="https://github.com/sauln/ripser">Ripser</a>, though any persistence diagram should work fine.</p>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>Currently, the only option is to install the library from source:</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">persim</span>
-<span class="pre">`</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">persim</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>First, construct a diagram. In this example, we will use [Ripser](<a class="reference external" href="https://github.com/sauln/ripser">https://github.com/sauln/ripser</a>).</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>` Python
-import numpy as np
-from ripser import Rips</p>
-<p>data = np.random.random((100,2))
-rips = Rips()
-dgm = rips.fit_transform(data)
-diagram = dgm[1] # Just diagram for H1
-<a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
-<p>Then from this diagram, we construct the persistence image</p>
-<p><a href="#id7"><span class="problematic" id="id8">``</span></a>` Python
-from persim import PersImage</p>
-<p>pim = PersImage(diagram)
-img = pim.transform()
-pim.show(img)
-<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ripser</span> <span class="k">import</span> <span class="n">Rips</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rips</span> <span class="o">=</span> <span class="n">Rips</span><span class="p">()</span>
+<span class="n">dgm</span> <span class="o">=</span> <span class="n">rips</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">diagram</span> <span class="o">=</span> <span class="n">dgm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Just diagram for H1</span>
+</pre></div>
 </div>
-<div class="section" id="todo">
-<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>The API needs a little work, not quite sklearn compliant. Please do offer any suggestions.</li>
-<li>Implement more varieties of weighting and kernel functions.</li>
-<li>Build tests.</li>
-</ul>
+<p>Then from this diagram, we construct the persistence image</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">persim</span> <span class="k">import</span> <span class="n">PersImage</span>
+
+<span class="n">pim</span> <span class="o">=</span> <span class="n">PersImage</span><span class="p">(</span><span class="n">diagram</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">pim</span><span class="o">.</span><span class="n">transform</span><span class="p">()</span>
+<span class="n">pim</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>Persistence Images were first introduced in [Adams et al, 2017](<a class="reference external" href="http://www.jmlr.org/papers/volume18/16-337/16-337.pdf">http://www.jmlr.org/papers/volume18/16-337/16-337.pdf</a>). Much of this work, an examples contained herein are inspired by the work of [Obayashi and Hiraoka, 2017](<a class="reference external" href="https://arxiv.org/abs/1706.10082">https://arxiv.org/abs/1706.10082</a>). Choices of weightings and general methods are often derived from [Kusano, Fukumizu, and Yasuaki Hiraoka, 2016](<a class="reference external" href="https://arxiv.org/abs/1601.01741">https://arxiv.org/abs/1601.01741</a>).</p>
-</div>
+<p>Persistence Images were first introduced in <a class="reference external" href="http://www.jmlr.org/papers/volume18/16-337/16-337.pdf">Adams et al, 2017</a>. Much of this work, an examples contained herein are inspired by the work of <a class="reference external" href="https://arxiv.org/abs/1706.10082">Obayashi and Hiraoka, 2017</a>. Choices of weightings and general methods are often derived from <a class="reference external" href="https://arxiv.org/abs/1601.01741">Kusano, Fukumizu, and Yasuaki Hiraoka, 2016</a>.</p>
 </div>
 <div class="section" id="disclaimer">
-<h1>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h1>
+<h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
 <p>Standard MIT disclaimer applies, see <code class="docutils literal notranslate"><span class="pre">DISCLAIMER.md</span></code> for full text.</p>
 <p>Development status is Alpha.</p>
+</div>
 </div>
 
 

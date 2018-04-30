@@ -4,33 +4,7 @@ UMAP
 |PyPI version| |Build Status| |Codecov| 
 
 
-
-
-This project started out as a learning endeavor, but has since grown to so much more. If you would like to contribute, please open a github issue first: https://github.com/lmcinnes/umap.
-
-Disclaimer
-===========
-
-Standard MIT disclaimer applies, see ``DISCLAIMER.md`` for full text.
-
-Development status is Alpha.
-
-Cite
-=====
-
-
-Bibtex entry:
-
-
-::
-
-    @MISC {,
-        author       = "Leland McInnes",
-        title        = "UMAP",
-        howpublished = "http://github.com/lmcinnes/UMAP",
-        month        = "Apr",
-        year         = "2018"
-    }
+Place holder for future UMAP documentation.
 
 
 

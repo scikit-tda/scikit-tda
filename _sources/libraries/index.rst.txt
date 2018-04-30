@@ -1,13 +1,21 @@
 
-Information about libraries
-------------------------------
+Libraries
+-----------
 
-Currently, we have Kepler Mapper, UMAP, Ripser and Persim. These provide facilities for
+Currently included in scikit-tda are the libraries 
 
+- UMAP, 
+- Kepler Mapper, 
+- Ripser and 
+- Persim. 
+
+These libraries provide facilities for
+
+- Dimensionality Reduction
 - Mapper
 - Persistent Homology
 - Persistence Images
-- Dimensionality Reduction
+
 
 What other aspects of TDA should be included?
 

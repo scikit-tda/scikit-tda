@@ -1,22 +1,22 @@
 About
 ------
 
+This entire project hinges on quality documentation.  
 
-Currently, we have Kepler Mapper, UMAP, Ripser and Persim. These provide facilities for
+- Documentation and examples
+    - Explain basic theory in lay-person language
+    - Provide basic examples of usage
+    - Provide notebooks showing basic usages
 
-- Mapper
-- Persistent Homology
-- Persistence Images
-- Dimensionality Reduction
+- Interesting examples
+    - Using UMAP to reduce dimension before computing diagrams
+    - Using persistence images for classification
+    - Extracting cycles and visualizing them on UMAP reduced dimension.
 
 
-Code Quality
+Guidelines
 =============
 
-
-
-This library must be able to execute test suites for each of the submodules. 
-
-Follow scikit-learn [coding guidelines](http://scikit-learn.org/stable/developers/contributing.html#coding-guidelines)
+All libraries in scikit-tda have some semblence of consistency.  In general, we follow the scikit-learn [coding guidelines](http://scikit-learn.org/stable/developers/contributing.html#coding-guidelines).
 
 

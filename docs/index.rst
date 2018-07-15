@@ -11,7 +11,12 @@ scikit-tda is a home for compatible TDA libraries intended for non-researchers. 
 
 
 .. toctree::
-    :hidden:
-
+    :caption About
     about
-    libraries/index
+
+.. toctree::
+    :caption Libraries
+
+    libraries/kepler-mapper
+    libraries/persim
+    libraries/umap

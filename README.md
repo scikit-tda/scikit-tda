@@ -1,3 +1,11 @@
+This is essentially two projects, one is the conglomerate documentation and the other is the conglomerate packages.
+
+Installing all packages is straight forward, it's hard to incorporate all of the documentation.  What is the best way to do this?
+
+Should we have all the docs included as well? No point in hosting them all twice?
+
+
+
 # Scikit-TDA
 
 Scikit-TDA is an opinionated collection of libraries for Topological Data Analysis. The user interfaces across all included libraries are standardized and compatible with numpy and scikit-learn.

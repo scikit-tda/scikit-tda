@@ -24,3 +24,10 @@ The libraries will then be accessible from `sktda`
 ```
 
 *It is not clear what the best way to do this is.  Should all libraries exist at the top level, or should we reorganize the libraries so they make more sense as a group?* 
+
+# Adding new libraries
+
+All the magic happens in [Makefile](Makefile).
+
+It works by including each library as a submodule, 
+

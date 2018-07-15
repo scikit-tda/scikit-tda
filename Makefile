@@ -1,5 +1,36 @@
 # make gh-pages in repo base directory to automatically build and deploy documents to github
 
+local:
+	# first, update all the projects
+	echo "Update all submodules"
+	cd libraries/kepler-mapper; git pull origin master
+	cd libraries/persim; git pull origin master
+	cd libraries/ripser; git pull origin master
+	cd libraries/umap; git pull origin master
+	git add libraries
+	git commit -m "update submodules"; git push origin master
+
+	echo "Make gh-pages"
+
+	echo "get up-to-date source from submodules"
+	git submodule update --recursive
+
+	#rm libraries/kepler-mapper/index.html
+	cd docs; make html
+
+	echo "Go to gh-pages"
+	git checkout gh-pages
+
+	echo "Remove old dirs"
+	rm -rf _sources _static _modules libraries
+
+	echo "Move new html"
+	mv -fv docs/_build/html/* .
+
+	echo "Remove built docs"
+	rm -rf docs
+
+
 gh-pages:
 	# first, update all the projects
 	echo "Update all submodules"

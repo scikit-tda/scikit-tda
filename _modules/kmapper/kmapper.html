@@ -18,7 +18,7 @@
     <title>kmapper.kmapper &#8212; scikit-tda 0.0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -115,7 +115,7 @@
 
 <span class="kn">from</span> <span class="nn">.cover</span> <span class="k">import</span> <span class="n">Cover</span>
 <span class="kn">from</span> <span class="nn">.nerve</span> <span class="k">import</span> <span class="n">GraphNerve</span>
-<span class="kn">from</span> <span class="nn">.visuals</span> <span class="k">import</span> <span class="n">init_color_function</span><span class="p">,</span> <span class="n">format_meta</span><span class="p">,</span> <span class="n">dict_to_json</span><span class="p">,</span> <span class="n">color_function_distribution</span>
+<span class="kn">from</span> <span class="nn">.visuals</span> <span class="k">import</span> <span class="n">init_color_function</span><span class="p">,</span> <span class="n">format_meta</span><span class="p">,</span> <span class="n">format_mapper_data</span><span class="p">,</span> <span class="n">build_histogram</span><span class="p">,</span> <span class="n">graph_data_distribution</span>
 
 
 <div class="viewcode-block" id="KeplerMapper"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper">[docs]</a><span class="k">class</span> <span class="nc">KeplerMapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -133,19 +133,24 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># TODO: move as many of the arguments from fit_transform and map into here.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_dist</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">overlap_dist</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cover</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KeplerMapper()&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KeplerMapper.project"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper.project">[docs]</a>    <span class="k">def</span> <span class="nf">project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">scaler</span><span class="o">=</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">(),</span> <span class="n">distance_matrix</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates the projection/lens from a dataset. Input the data set. Specify a projection/lens type. Output the projected data/lens.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        data : Numpy Array</span>
+<span class="sd">        X : Numpy Array</span>
 <span class="sd">            The data to fit a projection/lens to.</span>
 
 <span class="sd">        projection :</span>
@@ -163,7 +168,7 @@
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
 
-<span class="sd">        &gt;&gt;&gt; projected_data = mapper.fit_transform(data, projection=&quot;sum&quot;, scaler=km.preprocessing.MinMaxScaler() )</span>
+<span class="sd">        &gt;&gt;&gt; projected_data = mapper.project(data, projection=&quot;sum&quot;, scaler=km.preprocessing.MinMaxScaler() )</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -178,27 +183,11 @@
 
         <span class="c1"># If distance_matrix is a scipy.spatial.pdist string, we create a square distance matrix</span>
         <span class="c1"># from the vectors, before applying a projection.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_matrix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;braycurtis&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;canberra&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;chebyshev&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;cityblock&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;correlation&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;cosine&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;dice&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;hamming&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;jaccard&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;kulsinski&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;mahalanobis&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;matching&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;minkowski&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;rogerstanimoto&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;russellrao&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;seuclidean&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;sokalmichener&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;sokalsneath&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;yule&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance_matrix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;braycurtis&quot;</span><span class="p">,</span> <span class="s2">&quot;canberra&quot;</span><span class="p">,</span> <span class="s2">&quot;chebyshev&quot;</span><span class="p">,</span> <span class="s2">&quot;cityblock&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;correlation&quot;</span><span class="p">,</span> <span class="s2">&quot;cosine&quot;</span><span class="p">,</span> <span class="s2">&quot;dice&quot;</span><span class="p">,</span> <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="s2">&quot;hamming&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;jaccard&quot;</span><span class="p">,</span> <span class="s2">&quot;kulsinski&quot;</span><span class="p">,</span> <span class="s2">&quot;mahalanobis&quot;</span><span class="p">,</span> <span class="s2">&quot;matching&quot;</span><span class="p">,</span> <span class="s2">&quot;minkowski&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;rogerstanimoto&quot;</span><span class="p">,</span> <span class="s2">&quot;russellrao&quot;</span><span class="p">,</span> <span class="s2">&quot;seuclidean&quot;</span><span class="p">,</span> <span class="s2">&quot;sokalmichener&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;sokalsneath&quot;</span><span class="p">,</span> <span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="s2">&quot;yule&quot;</span><span class="p">]:</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">squareform</span><span class="p">(</span><span class="n">distance</span><span class="o">.</span><span class="n">pdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">distance_matrix</span><span class="p">))</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Created distance matrix, shape: </span><span class="si">%s</span><span class="s2">, with distance metric `</span><span class="si">%s</span><span class="s2">`&quot;</span> <span class="o">%</span>
@@ -218,6 +207,7 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
+        <span class="c1"># What is this used for?</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">projection</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_projection_tuple</span><span class="p">(</span><span class="n">projection</span><span class="p">)</span>
 
@@ -227,25 +217,45 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">..Projecting data using: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">projection</span><span class="p">))</span>
             <span class="c1"># Stats lenses</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;sum&quot;</span><span class="p">:</span>  <span class="c1"># sum of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>  <span class="c1"># mean of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;median&quot;</span><span class="p">:</span>  <span class="c1"># mean of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>  <span class="c1"># max of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;min&quot;</span><span class="p">:</span>  <span class="c1"># min of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;std&quot;</span><span class="p">:</span>  <span class="c1"># std of row</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;l2norm&quot;</span><span class="p">:</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
 
-            <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;dist_mean&quot;</span><span class="p">:</span>  <span class="c1"># Distance of x to mean of X</span>
+            <span class="k">def</span> <span class="nf">dist_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
                 <span class="n">X_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
-                           <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">X</span>
+
+            <span class="n">projection_funcs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;sum&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+                <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+                <span class="s2">&quot;median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+                <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span>
+                <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span>
+                <span class="s2">&quot;l2norm&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
+                <span class="s2">&quot;dist_mean&quot;</span><span class="p">:</span> <span class="n">dist_mean</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">projection</span> <span class="ow">in</span> <span class="n">projection_funcs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">projection_funcs</span><span class="p">[</span><span class="n">projection</span><span class="p">](</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="c1"># if projection == &quot;sum&quot;:  # sum of row</span>
+            <span class="c1">#     X = np.sum(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;mean&quot;:  # mean of row</span>
+            <span class="c1">#     X = np.mean(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;median&quot;:  # median of row</span>
+            <span class="c1">#     X = np.median(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;max&quot;:  # max of row</span>
+            <span class="c1">#     X = np.max(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;min&quot;:  # min of row</span>
+            <span class="c1">#     X = np.min(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;std&quot;:  # std of row</span>
+            <span class="c1">#     X = np.std(X, axis=1).reshape((X.shape[0], 1))</span>
+            <span class="c1"># if projection == &quot;l2norm&quot;:</span>
+            <span class="c1">#     X = np.linalg.norm(X, axis=1).reshape((X.shape[0], 1))</span>
+
+            <span class="c1"># if projection == &quot;dist_mean&quot;:  # Distance of x to mean of X</span>
+            <span class="c1">#     X_mean = np.mean(X, axis=0)</span>
+            <span class="c1">#     X = np.sum(np.sqrt((X - X_mean)**2),</span>
+            <span class="c1">#                axis=1).reshape((X.shape[0], 1))</span>
 
             <span class="k">if</span> <span class="s2">&quot;knn_distance_&quot;</span> <span class="ow">in</span> <span class="n">projection</span><span class="p">:</span>
                 <span class="n">n_neighbors</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">projection</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
@@ -279,8 +289,7 @@
 
         <span class="k">return</span> <span class="n">X</span></div>
 
-<div class="viewcode-block" id="KeplerMapper.fit_transform"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                      <span class="n">X</span><span class="p">,</span>
+<div class="viewcode-block" id="KeplerMapper.fit_transform"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span>
                       <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
                       <span class="n">scaler</span><span class="o">=</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">(),</span>
                       <span class="n">distance_matrix</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -315,7 +324,7 @@
             <span class="n">distance_matrices</span> <span class="o">=</span> <span class="p">[</span><span class="n">distance_matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">projections</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;..Composing projection pipeline length </span><span class="si">%s</span><span class="s2">:&quot;</span> <span class="o">%</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;..Composing projection pipeline of length </span><span class="si">%s</span><span class="s2">:&quot;</span> <span class="o">%</span>
                   <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">projections</span><span class="p">)))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Projections: </span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">projections</span><span class="p">))))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distance matrices: </span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span>
@@ -323,53 +332,53 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scalers: </span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">scalers</span><span class="p">))))</span>
 
         <span class="c1"># Pipeline Stack the projection functions</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">projection</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">distance_matrix</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">projections</span><span class="p">,</span>
-                                                                      <span class="n">scalers</span><span class="p">,</span> <span class="n">distance_matrices</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">projected_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>
-                                           <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
-                                           <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span>
-                                           <span class="n">distance_matrix</span><span class="o">=</span><span class="n">distance_matrix</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">projected_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">projected_X</span><span class="p">,</span>
-                                           <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
-                                           <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span>
-                                           <span class="n">distance_matrix</span><span class="o">=</span><span class="n">distance_matrix</span><span class="p">)</span>
+        <span class="n">lens</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="k">for</span> <span class="n">projection</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">distance_matrix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">projections</span><span class="p">,</span> <span class="n">scalers</span><span class="p">,</span> <span class="n">distance_matrices</span><span class="p">):</span>
+            <span class="n">lens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">lens</span><span class="p">,</span>
+                                <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
+                                <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span>
+                                <span class="n">distance_matrix</span><span class="o">=</span><span class="n">distance_matrix</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">projected_X</span></div>
+        <span class="k">return</span> <span class="n">lens</span></div>
 
 <div class="viewcode-block" id="KeplerMapper.map"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">projected_X</span><span class="p">,</span>
-            <span class="n">inverse_X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">lens</span><span class="p">,</span>
+            <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">clusterer</span><span class="o">=</span><span class="n">cluster</span><span class="o">.</span><span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-            <span class="n">nr_cubes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cover</span><span class="o">=</span><span class="n">Cover</span><span class="p">(</span><span class="n">n_cubes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">perc_overlap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">nerve</span><span class="o">=</span><span class="n">GraphNerve</span><span class="p">(),</span>
+
+            <span class="c1"># These arguments are all deprecated</span>
             <span class="n">overlap_perc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">coverer</span><span class="o">=</span><span class="n">Cover</span><span class="p">(</span><span class="n">nr_cubes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">overlap_perc</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
-            <span class="n">nerve</span><span class="o">=</span><span class="n">GraphNerve</span><span class="p">()):</span>
+            <span class="n">nr_cubes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">coverer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Apply Mapper algorithm on this projection and build a simplicial complex. Returns a dictionary with nodes and links.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        projected_X : Numpy Array</span>
-<span class="sd">            Output from fit_transform</span>
+<span class="sd">        lens: Numpy Array</span>
+<span class="sd">            Lower dimensional representation of data. In general will be output of `fit_transform`.</span>
 
-<span class="sd">        inverse_X : Numpy Array</span>
-<span class="sd">            Original data. If `None`, then use `projected_X` for clustering.</span>
+<span class="sd">        X: Numpy Array</span>
+<span class="sd">            Original data or data to run clustering on. If `None`, then use `lens` as default.</span>
 
-<span class="sd">        clusterer:</span>
-<span class="sd">            Scikit-learn API compatible clustering algorithm. Default: DBSCAN</span>
+<span class="sd">        clusterer: Default: DBSCAN</span>
+<span class="sd">            Scikit-learn API compatible clustering algorithm. Must provide `fit`, `get_labels`, and produce attribute `labels_`.</span>
 
-<span class="sd">        nr_cubes : Int</span>
-<span class="sd">            The number of intervals/hypercubes to create. Default = 10. (DeprecationWarning: define Cover explicitly in future versions)</span>
-
-<span class="sd">        overlap_perc : Float</span>
-<span class="sd">            The percentage of overlap &quot;between&quot; the intervals/hypercubes. Default = 0.1. (DeprecationWarning: define Cover explicitly in future versions)</span>
-
-<span class="sd">        coverer : kmapper.Cover</span>
+<span class="sd">        cover: type kmapper.Cover</span>
 <span class="sd">            Cover scheme for lens. Instance of kmapper.cover providing methods `define_bins` and `find_entries`.</span>
 
-<span class="sd">        nerve : kmapper.Nerve</span>
+<span class="sd">        nerve: kmapper.Nerve</span>
 <span class="sd">            Nerve builder implementing `__call__(nodes)` API</span>
+
+
+
+<span class="sd">        nr_cubes: Int (Deprecated)</span>
+<span class="sd">            The number of intervals/hypercubes to create. Default = 10. (DeprecationWarning: define Cover explicitly in future versions)</span>
+
+<span class="sd">        overlap_perc: Float (Deprecated)</span>
+<span class="sd">            The percentage of overlap &quot;between&quot; the intervals/hypercubes. Default = 0.1. (DeprecationWarning: define Cover explicitly in future versions)</span>
+
 
 <span class="sd">        Returns</span>
 <span class="sd">        =======</span>
@@ -379,7 +388,7 @@
 <span class="sd">        Example</span>
 <span class="sd">        =======</span>
 
-<span class="sd">        &gt;&gt;&gt; simplicial_complex = mapper.map(projected_X, inverse_X=None, clusterer=cluster.DBSCAN(eps=0.5,min_samples=3),nr_cubes=10, overlap_perc=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; simplicial_complex = mapper.map(lens, X=None, clusterer=cluster.DBSCAN(eps=0.5,min_samples=3), cover=km.Cover(n_cubes=[10,20], perc_overlap=0.4))</span>
 
 <span class="sd">        &gt;&gt;&gt;print(simplicial_complex[&quot;nodes&quot;])</span>
 <span class="sd">        &gt;&gt;&gt;print(simplicial_complex[&quot;links&quot;])</span>
@@ -394,33 +403,40 @@
         <span class="n">graph</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># If inverse image is not provided, we use the projection as the inverse image (suffer projection loss)</span>
-        <span class="k">if</span> <span class="n">inverse_X</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">inverse_X</span> <span class="o">=</span> <span class="n">projected_X</span>
+        <span class="k">if</span> <span class="n">X</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">lens</span>
 
+        <span class="c1"># Deprecation warnings</span>
         <span class="k">if</span> <span class="n">nr_cubes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">overlap_perc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># If user supplied nr_cubes or overlap_perc,</span>
-            <span class="c1"># use old defaults instead of new Cover</span>
-            <span class="n">nr_cubes</span> <span class="o">=</span> <span class="n">nr_cubes</span> <span class="k">if</span> <span class="n">nr_cubes</span> <span class="k">else</span> <span class="mi">10</span>
-            <span class="n">overlap_perc</span> <span class="o">=</span> <span class="n">overlap_perc</span> <span class="k">if</span> <span class="n">overlap_perc</span> <span class="k">else</span> <span class="mf">0.1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span> <span class="o">=</span> <span class="n">Cover</span><span class="p">(</span><span class="n">nr_cubes</span><span class="o">=</span><span class="n">nr_cubes</span><span class="p">,</span>
-                                 <span class="n">overlap_perc</span><span class="o">=</span><span class="n">overlap_perc</span><span class="p">)</span>
-
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;Explicitly passing in nr_cubes and overlap_perc will be deprecated in future releases. Please supply Cover object.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+                <span class="s2">&quot;Please supply km.Cover object. Explicitly passing in n_cubes/nr_cubes and overlap_perc will be deprecated in future releases. &quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">coverer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;coverer has been renamed to `cover`. Please you `cover` from now on.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+        <span class="c1"># If user supplied nr_cubes, overlap_perc, or coverer, opt for those</span>
+        <span class="c1"># TODO: remove this conditional after release in 1.2</span>
+        <span class="k">if</span> <span class="n">coverer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cover</span> <span class="o">=</span> <span class="n">coverer</span>
+        <span class="k">elif</span> <span class="n">nr_cubes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">overlap_perc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">n_cubes</span> <span class="o">=</span> <span class="n">nr_cubes</span> <span class="k">if</span> <span class="n">nr_cubes</span> <span class="k">else</span> <span class="mi">10</span>
+            <span class="n">overlap_perc</span> <span class="o">=</span> <span class="n">overlap_perc</span> <span class="k">if</span> <span class="n">overlap_perc</span> <span class="k">else</span> <span class="mf">0.1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cover</span> <span class="o">=</span> <span class="n">Cover</span><span class="p">(</span><span class="n">n_cubes</span><span class="o">=</span><span class="n">n_cubes</span><span class="p">,</span>
+                               <span class="n">perc_overlap</span><span class="o">=</span><span class="n">overlap_perc</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span> <span class="o">=</span> <span class="n">coverer</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cover</span> <span class="o">=</span> <span class="n">cover</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mapping on data shaped </span><span class="si">%s</span><span class="s2"> using lens shaped </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span>
-                  <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">inverse_X</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">projected_X</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
+                  <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">lens</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
 
-        <span class="c1"># Prefix&#39;ing the data with ID&#39;s</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">projected_X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
-        <span class="n">projected_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="n">projected_X</span><span class="p">]</span>
-        <span class="n">inverse_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="n">inverse_X</span><span class="p">]</span>
+        <span class="c1"># Prefix&#39;ing the data with an ID column</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lens</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+        <span class="n">lens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="n">lens</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="n">X</span><span class="p">]</span>
 
         <span class="c1"># Cover scheme defines a list of elements</span>
-        <span class="n">bins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span><span class="o">.</span><span class="n">define_bins</span><span class="p">(</span><span class="n">projected_X</span><span class="p">)</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover</span><span class="o">.</span><span class="n">define_bins</span><span class="p">(</span><span class="n">lens</span><span class="p">)</span>
 
         <span class="c1"># Algo&#39;s like K-Means, have a set number of clusters. We need this number</span>
         <span class="c1"># to adjust for the minimal number of samples inside an interval before</span>
@@ -441,7 +457,7 @@
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cube</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bins</span><span class="p">):</span>
             <span class="c1"># Slice the hypercube:</span>
             <span class="c1">#  gather all entries in this element of the cover</span>
-            <span class="n">hypercube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span><span class="o">.</span><span class="n">find_entries</span><span class="p">(</span><span class="n">projected_X</span><span class="p">,</span> <span class="n">cube</span><span class="p">)</span>
+            <span class="n">hypercube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover</span><span class="o">.</span><span class="n">find_entries</span><span class="p">(</span><span class="n">lens</span><span class="p">,</span> <span class="n">cube</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> points in cube_</span><span class="si">%s</span><span class="s2"> / </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
@@ -452,9 +468,9 @@
 
                 <span class="c1"># Cluster the data point(s) in the cube, skipping the id-column</span>
                 <span class="c1"># Note that we apply clustering on the inverse image (original data samples) that fall inside the cube.</span>
-                <span class="n">inverse_x</span> <span class="o">=</span> <span class="n">inverse_X</span><span class="p">[[</span><span class="nb">int</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span> <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">hypercube</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]]</span>
+                <span class="n">X_cube</span> <span class="o">=</span> <span class="n">X</span><span class="p">[[</span><span class="nb">int</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span> <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">hypercube</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]]</span>
 
-                <span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">inverse_x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:])</span>
+                <span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cube</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:])</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">%s</span><span class="s2"> clusters in cube_</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
@@ -485,8 +501,8 @@
         <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;simplices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">simplices</span>
         <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;meta_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="k">else</span> <span class="s2">&quot;custom&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;nr_cubes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">,</span>
-            <span class="s2">&quot;overlap_perc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">coverer</span><span class="o">.</span><span class="n">overlap_perc</span><span class="p">,</span>
+            <span class="s2">&quot;n_cubes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">,</span>
+            <span class="s2">&quot;perc_overlap&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover</span><span class="o">.</span><span class="n">perc_overlap</span><span class="p">,</span>
             <span class="s2">&quot;clusterer&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">clusterer</span><span class="p">),</span>
             <span class="s2">&quot;scaler&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="p">)</span>
         <span class="p">}</span>
@@ -499,7 +515,7 @@
         <span class="k">return</span> <span class="n">graph</span></div>
 
     <span class="k">def</span> <span class="nf">_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="c1"># TODO: this summary is relevant to the type of Nerve being built.</span>
+        <span class="c1"># TODO: this summary is dependant on the type of Nerve being built.</span>
         <span class="n">links</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">]</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">]</span>
         <span class="n">nr_links</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
@@ -513,63 +529,110 @@
                   <span class="n">custom_tooltips</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">custom_meta</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">path_html</span><span class="o">=</span><span class="s2">&quot;mapper_visualization_output.html&quot;</span><span class="p">,</span>
-                  <span class="n">title</span><span class="o">=</span><span class="s2">&quot;My Data&quot;</span><span class="p">,</span>
+                  <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Kepler Mapper&quot;</span><span class="p">,</span>
                   <span class="n">save_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                  <span class="n">inverse_X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                  <span class="n">inverse_X_names</span><span class="o">=</span><span class="p">[],</span>
-                  <span class="n">projected_X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                  <span class="n">projected_X_names</span><span class="o">=</span><span class="p">[]):</span>
+                  <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">X_names</span><span class="o">=</span><span class="p">[],</span>
+                  <span class="n">lens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">lens_names</span><span class="o">=</span><span class="p">[],</span>
+                  <span class="n">show_tooltips</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generate a visualization of the simplicial complex mapper output. Turns the complex dictionary into a HTML/D3.js visualization</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        graph : dict</span>
 <span class="sd">            Simplicial complex output from the `map` method.</span>
+
 <span class="sd">        path_html : String</span>
-<span class="sd">        file name for outputing the resulting html.</span>
+<span class="sd">            file name for outputing the resulting html.</span>
+
+<span class="sd">        custom_meta: dict</span>
+<span class="sd">            Render (key, value) in the Mapper Summary pane. </span>
+
+<span class="sd">        custom_tooltip: list or array like</span>
+<span class="sd">            Value to display for each entry in the node. The cluster data pane will display entry for all values in the node. Default is index of data.</span>
+
+<span class="sd">        save_file: bool, default is True</span>
+<span class="sd">            Save file to `path_html`.</span>
+
+<span class="sd">        X: numpy arraylike</span>
+<span class="sd">            If supplied, compute statistics information about the original data source with respect to each node.</span>
+
+<span class="sd">        X_names: list of strings</span>
+<span class="sd">            Names of each variable in `X` to be displayed. If None, then display names by index.</span>
+
+<span class="sd">        lens: numpy arraylike</span>
+<span class="sd">            If supplied, compute statistics of each node based on the projection/lens</span>
+
+<span class="sd">        lens_name: list of strings</span>
+<span class="sd">            Names of each variable in `lens` to be displayed. In None, then display names by index.</span>
+
+<span class="sd">        show_tooltips: bool, default is True.</span>
+<span class="sd">            If false, completely disable tooltips. This is useful when using output in space-tight pages or will display node data in custom ways.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        html: string</span>
+<span class="sd">            Returns the same html that is normally output to `path_html`. Complete graph and data ready for viewing.</span>
+
 
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
 
-<span class="sd">        &gt;&gt;&gt; mapper.visualize(simplicial_complex, path_html=&quot;mapper_visualization_output.html&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; mapper.visualize(simplicial_complex, path_html=&quot;mapper_visualization_output.html&quot;,</span>
+<span class="sd">                            custom_meta={&#39;Data&#39;: &#39;MNIST handwritten digits&#39;, </span>
+<span class="sd">                                         &#39;Created by&#39;: &#39;Franklin Roosevelt&#39;</span>
+<span class="sd">                            }, )</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">color_function</span> <span class="o">=</span> <span class="n">init_color_function</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">)</span>
-        <span class="n">json_graph</span> <span class="o">=</span> <span class="n">dict_to_json</span><span class="p">(</span>
-            <span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">,</span> <span class="n">inverse_X</span><span class="p">,</span> <span class="n">inverse_X_names</span><span class="p">,</span> <span class="n">projected_X</span><span class="p">,</span> <span class="n">projected_X_names</span><span class="p">,</span> <span class="n">custom_tooltips</span><span class="p">)</span>
-        <span class="n">color_distribution</span> <span class="o">=</span> <span class="n">color_function_distribution</span><span class="p">(</span>
-            <span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">)</span>
-        <span class="n">meta</span> <span class="o">=</span> <span class="n">format_meta</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">custom_meta</span><span class="p">)</span>
+        <span class="c1"># TODO:</span>
+        <span class="c1">#   - Make color functions more intuitive. How do they even work?</span>
+        <span class="c1">#   - Allow multiple color functions that can be toggled on and off.</span>
 
-        <span class="c1"># Find the absolute module path and the static files</span>
-        <span class="n">js_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
-            <span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;kmapper.js&#39;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">js_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
-            <span class="n">js_text</span> <span class="o">=</span> <span class="n">myfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="n">css_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
-            <span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;style.css&#39;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">css_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
-            <span class="n">css_text</span> <span class="o">=</span> <span class="n">myfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Visualize requires a mapper with more than 0 nodes. </span><span class="se">\n</span><span class="s2">It is possible that the constructed mapper could have been constructed with bad parameters. This can occasionally happens when using the default clustering algorithm. Try changing `eps` or `min_samples` in the DBSCAN clustering algorithm.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Find the module absolute path and locate templates</span>
         <span class="n">module_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">)</span>
         <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">module_root</span><span class="p">))</span>
+        <span class="c1"># Color function is a vector of colors?</span>
+        <span class="n">color_function</span> <span class="o">=</span> <span class="n">init_color_function</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">)</span>
+
+        <span class="n">mapper_data</span> <span class="o">=</span> <span class="n">format_mapper_data</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span>
+                                         <span class="n">X_names</span><span class="p">,</span> <span class="n">lens</span><span class="p">,</span>
+                                         <span class="n">lens_names</span><span class="p">,</span> <span class="n">custom_tooltips</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+
+        <span class="n">histogram</span> <span class="o">=</span> <span class="n">graph_data_distribution</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">color_function</span><span class="p">)</span>
+
+        <span class="n">mapper_summary</span> <span class="o">=</span> <span class="n">format_meta</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">custom_meta</span><span class="p">)</span>
+
+        <span class="c1"># Find the absolute module path and the static files</span>
+        <span class="n">js_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;kmapper.js&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">js_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">js_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">css_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;style.css&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">css_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">css_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="c1"># Render the Jinja template, filling fields as appropriate</span>
         <span class="n">template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;base.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
-            <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span>
-            <span class="n">color_distribution</span><span class="o">=</span><span class="n">color_distribution</span><span class="p">,</span>
-            <span class="n">json_graph</span><span class="o">=</span><span class="n">json_graph</span><span class="p">,</span>
+            <span class="n">mapper_summary</span><span class="o">=</span><span class="n">mapper_summary</span><span class="p">,</span>
+            <span class="n">histogram</span><span class="o">=</span><span class="n">histogram</span><span class="p">,</span>
+            <span class="n">dist_label</span><span class="o">=</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span>
+            <span class="n">mapper_data</span><span class="o">=</span><span class="n">mapper_data</span><span class="p">,</span>
             <span class="n">js_text</span><span class="o">=</span><span class="n">js_text</span><span class="p">,</span>
-            <span class="n">css_text</span><span class="o">=</span><span class="n">css_text</span><span class="p">)</span>
+            <span class="n">css_text</span><span class="o">=</span><span class="n">css_text</span><span class="p">,</span>
+            <span class="n">show_tooltips</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">save_file</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_html</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wrote visualization to: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path_html</span><span class="p">))</span>
                 <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
         <span class="k">return</span> <span class="n">template</span></div>
 
 <div class="viewcode-block" id="KeplerMapper.data_from_cluster_id"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.kmapper.KeplerMapper.data_from_cluster_id">[docs]</a>    <span class="k">def</span> <span class="nf">data_from_cluster_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -603,6 +666,8 @@
         <span class="c1"># TODO: infer binary classification and select positive class preds</span>
         <span class="c1"># TODO: turn into smaller functions for better tests and complexity</span>
 
+        <span class="c1"># TODO: this seems like outside the purview of mapper. Can we add something like Mapper utils that can do this?</span>
+
         <span class="k">def</span> <span class="nf">blend</span><span class="p">(</span><span class="n">X_blend</span><span class="p">,</span> <span class="n">pred_fun</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">X_data</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
                 <span class="n">fold_X_train</span> <span class="o">=</span> <span class="n">X_data</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
@@ -622,8 +687,8 @@
             <span class="c1"># Are we dealing with a classifier or a regressor?</span>
             <span class="n">estimator_type</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">estimator_type</span> <span class="o">==</span> <span class="s2">&quot;classifier&quot;</span><span class="p">:</span>
-                <span class="n">X_blend</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
-                    <span class="n">X_data</span><span class="p">)</span>  <span class="c1"># classifier probabilities</span>
+                <span class="c1"># classifier probabilities</span>
+                <span class="n">X_blend</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">estimator_type</span> <span class="o">==</span> <span class="s2">&quot;regressor&quot;</span><span class="p">:</span>
                 <span class="n">X_blend</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -633,7 +698,6 @@
         <span class="c1"># cross-validation, saving the out-of-fold predictions.</span>
         <span class="c1"># this is called &quot;Stacked Generalization&quot; (see: Wolpert 1992)</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">projection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="c1">#import pdb; pdb.set_trace()</span>
             <span class="n">model</span><span class="p">,</span> <span class="n">X_data</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">projection</span>
             <span class="n">estimator_type</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 

@@ -1,0 +1,475 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Using UMAP for Clustering &#8212; scikit-tda 0.0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="faq.html" />
+    <link rel="prev" title="UMAP for Supervised Dimension Reduction and Metric Learning" href="supervised.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="supervised.html" title="UMAP for Supervised Dimension Reduction and Metric Learning"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">scikit-tda 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Libraries</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Libraries</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kepler-mapper/index.html">KeplerMapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../persim/index.html">Persim</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="supervised.html"
+                        title="previous chapter">UMAP for Supervised Dimension Reduction and Metric Learning</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="next chapter">Frequently Asked Questions</a></p>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Libraries</a></li>
+              
+                <li><a href="index.html">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a></li>
+              
+              <li>Using UMAP for Clustering</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="using-umap-for-clustering">
+<h1>Using UMAP for Clustering<a class="headerlink" href="#using-umap-for-clustering" title="Permalink to this headline">¶</a></h1>
+<p>UMAP can be used as an effective preprocessing step to boost the
+performance of density based clustering. This is somewhat controversial,
+and should be attempted with care. For a good discussion of some of the
+issues involved in this please see the various answers <a class="reference external" href="https://stats.stackexchange.com/questions/263539/clustering-on-the-output-of-t-sne">in this
+stackoverflow
+thread</a>
+on clustering the results of t-SNE. Many of the points of concern raised
+there are salient for clustering the results of UMAP. The most notable
+is that UMAP, like t-SNE, does not completely preserve density. UMAP,
+like t-SNE, can also create tears in clusters that are not actually
+present, resulting in a finer clustering than is necessarily present in
+the data. Despite these concerns there are still valid reasons to use
+UMAP as a preprocessing step for clustering. As with any clustering
+approach one will want to do some exploration and evaluation of the
+clusters that come out to try to validate them if possible.</p>
+<p>With all of that said, let’s work through an example to demonstrate the
+difficulties that can face clustering approaches and how UMAP can
+provide a powerful tool to help overcome them.</p>
+<p>First we’ll need a selection of libraries loaded up. Obviously we’ll
+need data, and we can use sklearn’s <code class="docutils literal notranslate"><span class="pre">fetch_mldata</span></code> to get it. We’ll
+also need the usual tools of numpy, and plotting. Next we’ll need umap,
+and some clustering options. Finally, since we’ll be working with
+labeled data, we can make use of strong cluster evaluation metrics
+<a class="reference external" href="https://en.wikipedia.org/wiki/Rand_index#Adjusted_Rand_index">Adjusted Rand
+Index</a>
+and <a class="reference external" href="https://en.wikipedia.org/wiki/Adjusted_mutual_information">Adjusted Mutual
+Information</a>.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_mldata</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">PCA</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c1"># Dimension reduction and clustering libraries</span>
+<span class="kn">import</span> <span class="nn">umap</span>
+<span class="kn">import</span> <span class="nn">hdbscan</span>
+<span class="kn">import</span> <span class="nn">sklearn.cluster</span> <span class="k">as</span> <span class="nn">cluster</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">adjusted_rand_score</span><span class="p">,</span> <span class="n">adjusted_mutual_info_score</span>
+</pre></div>
+</div>
+<p>Now let’s set up the plotting and grab the data we’ll be using – in
+this case the MNIST handwritten digits dataset. MNIST consists of 28x28
+pixel grayscale images of handwritten digits (0 through 9). These can be
+unraveled such that each digit is described by a 784 dimensional vector
+(the gray scale value of each pixel in the image). Ideally we would like
+the clustering to recover the digit structure.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">)})</span>
+</pre></div>
+</div>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">fetch_mldata</span><span class="p">(</span><span class="s1">&#39;MNIST Original&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For visualization purposes we can reduce the data to 2-dimensions using
+UMAP. When we cluster the data in high dimensions we can visualize the
+result of that clustering. First, however, we’ll view the data a colored
+by the digit that each data point represents – we’ll use a different
+color for each digit. This will help frame what follows.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">standard_embedding</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">standard_embedding</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/clustering_6_1.png" src="../../_images/clustering_6_1.png" />
+<div class="section" id="traditional-clustering">
+<h2>Traditional clustering<a class="headerlink" href="#traditional-clustering" title="Permalink to this headline">¶</a></h2>
+<p>Now we would like to cluster the data. As a first attempt let’s try the
+traditional approach: K-Means. In this case we can solve one of the hard
+problems for K-Means clustering – choosing the right k value, giving
+the number of clusters we are looking for. In this case we know the
+answer is exactly 10. We will use sklearns K-Means implementation
+looking for 10 clusters in the original 784 dimensional data.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kmeans_labels</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And how did the clustering do? We can look at the results by coloring
+out UMAP embedded data by cluster membership.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">standard_embedding</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">kmeans_labels</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/clustering_10_1.png" src="../../_images/clustering_10_1.png" />
+<p>This is not really the result we were looking for (though it does expose
+interesting properties of how K-Means chooses clusters in high
+dimensional space, and how UMAP unwraps manifolds by finding manifold
+boundaries. While K-Means gets some cases correct – the two clusters
+are the far right are mostly correct, most of the rest of the data looks
+somewhat arbitrarily carved up among the remaining clusters. We can put
+this impression to the test by evaluating the adjusted Rand score and
+adjusted mutual information for this clustering as compared with the
+true labels.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_labels</span><span class="p">),</span>
+    <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_labels</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.36675295135972552</span><span class="p">,</span> <span class="mf">0.49614118437750965</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As might be expected, we have not done a particularly good job – both
+scores take values in the range 0 to 1, with 0 representing a bad
+(essentially random) clustering and 1 representing perfectly recovering
+the true labels. K-Means definitely was not random, but it was also
+quite a long way from perfectly recovering the true labels. Part of the
+problem is the way K-Means works, based on centroids with an assumption
+of largely spherical clusters – this is responsible for some of the
+sharp divides that K-Means puts across digit classes. We can potentially
+improve on this by using a smarter density based algorithm. In this case
+we’ve chosen to try HDBSCAN, which we believe to be among the most
+advanced density based tehcniques. For the sake of performance we’ll
+reduce the dimensionality of the data down to 50 dimensions via PCA
+(this recovers most of the variance), since HDBSCAN scales somewhat
+poorly with the dimensionality of the data it will work on.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lowd_mnist</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">hdbscan_labels</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">min_cluster_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">lowd_mnist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now inspect the results. Before we do, however, it should be
+noted that one of the features of HDBSCAN is that it can refuse to
+cluster some points and classify the as “noise”. To visualize this
+aspect we will colorpoints that were classified as noise gray, and then
+color the remaining points according to the cluster membership.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clustered</span> <span class="o">=</span> <span class="p">(</span><span class="n">hdbscan_labels</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[</span><span class="o">~</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">standard_embedding</span><span class="p">[</span><span class="o">~</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">standard_embedding</span><span class="p">[</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">hdbscan_labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/clustering_16_1.png" src="../../_images/clustering_16_1.png" />
+<p>This looks somewhat underwhelming. It meets HDBSCAN’s approach of “not
+being wrong” by simply refusing the classify the majority of the data.
+The result is a clustering that almost certainly fails to recover all
+the labels. We can verify this by looking at the clustering validation
+scores.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">hdbscan_labels</span><span class="p">),</span>
+    <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">hdbscan_labels</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.053830107882840102</span><span class="p">,</span> <span class="mf">0.19756104096566332</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These scores are far worse than K-Means! Partially this is due to the
+fact that these scores assume that the noise points are simply an extra
+cluster. We can instead only look at the subset of the data that HDBSCAN
+was actually confident enough to assign to clusters – a simple
+sub-selection will let us recompute the scores for only that data.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clustered</span> <span class="o">=</span> <span class="p">(</span><span class="n">hdbscan_labels</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span>
+    <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span> <span class="n">hdbscan_labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">]),</span>
+    <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span> <span class="n">hdbscan_labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.99843407988303912</span><span class="p">,</span> <span class="mf">0.99405521087764015</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And here we see that where HDBSCAN was willing to cluster it got things
+almost entirely correct. This is what it was designed to do – be right
+for what it can, and defer on anything that it couldn’t have sufficient
+confidence in. Of course the catch here is that it deferred clustering a
+lot of the data. How much of the data did HDBSCAN actually assign to
+clusters? We can compute that easily enough.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">clustered</span><span class="p">)</span> <span class="o">/</span> <span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.17081428571428572</span>
+</pre></div>
+</div>
+<p>It seems that less than 18% of the data was clustered. While HDBSCAN did
+a great job on the data it could cluster it did a poor job of actually
+managing to cluster the data. The problem here is that, as a density
+based clustering algorithm, HDBSCAN tends to suffer from the curse of
+dimensionality: high dimensional data requires more observed samples to
+produce much density. If we could reduce the dimensionality of the data
+more we would make the density more evident and make it far easier for
+HDBSCAN to cluster the data. The problem is that trying to use PCA to do
+this is going to become problematic. While reducing the 50 dimensions
+still explained a lot of the variance of the data, reducing further is
+going to quickly do a lot worse. This is due to the linear nature of
+PCA. What we need is strong manifold learning, and this is where UMAP
+can come into play.</p>
+</div>
+<div class="section" id="umap-enhanced-clustering">
+<h2>UMAP enhanced clustering<a class="headerlink" href="#umap-enhanced-clustering" title="Permalink to this headline">¶</a></h2>
+<p>Our goal is to make use of UMAP to perform non-linear manifold aware
+dimension reduction so we can get the dataset down to a number of
+dimensions small enough for a density based clustering algorithm to make
+progress. One advantage of UMAP for this is that it doesn’t require you
+to reduce to only two dimensions – you can reduce to 10 dimensions
+instead since the goal is to cluster, not visualize, and the performance
+cost with UMAP is minimal. As it happens MNIST is such a simple dataset
+that we really can push it all the way down to only two dimensions, but
+in general you should explore different embedding dimension options.</p>
+<p>The next thing to be aware of is that when using UMAP for dimension
+reduction you will want to select different parameters than if you were
+using it for visualization. First of all we will want a larger
+<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> value – small values will focus more on very local
+structure and are more prone to producing fine grained cluster structure
+that may be more a result of patterns of noise in the data than actual
+clusters. In this case we’ll double it from the default 15 up to 30.
+Second it is beneficial to set <code class="docutils literal notranslate"><span class="pre">min_dist</span></code> to a very low value. Since
+we actually want to pack points together densely (density is what we
+want after all) a low value will help, as well as making cleaner
+separations between clusters. In this case we will simply set
+<code class="docutils literal notranslate"><span class="pre">min_dist</span></code> to be 0.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clusterable_embedding</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span>
+    <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can visualize the results of this so see how it compares with more
+visualization attuned parameters:</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">clusterable_embedding</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">clusterable_embedding</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/clustering_27_1.png" src="../../_images/clustering_27_1.png" />
+<p>As you can see we still have the general global structure, but we are
+packing points together more tightly within clusters, and consequently
+we can see larger gaps between the clusters. Ultimately this embedding
+was for clustering purposes only, and we will go back to the original
+embedding for visualization purposes from here on out.</p>
+<p>The next step is to cluster this data. We’ll use HDBSCAN again, with the
+same parameter setting as before.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span>
+    <span class="n">min_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">min_cluster_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">clusterable_embedding</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And now we can visualize the results, just as before.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clustered</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[</span><span class="o">~</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">standard_embedding</span><span class="p">[</span><span class="o">~</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_embedding</span><span class="p">[</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">standard_embedding</span><span class="p">[</span><span class="n">clustered</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/clustering_31_1.png" src="../../_images/clustering_31_1.png" />
+<p>We can see that we have done a much better job of finding clusters
+rather than merely assigning the majority of data as noise. This is
+because we have we no longer have to try to cope with the relative lack
+of density in 50 dimensional space and now HDBSCAN can more cleanly
+discern the clusters.</p>
+<p>We can also make a quantitative assessment by using the clustering
+quality measures as before.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span> <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.9239306564265013</span><span class="p">,</span> <span class="mf">0.90302671641133736</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where before HDBSCAN performed very poorly, we now have score of 0.9 or
+better. This is because we actually clustered far more of the data. As
+before we can also look at how the clustering did on just the data that
+HDBSCAN was confident in clustering.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clustered</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span>
+    <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">]),</span>
+    <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">clustered</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">clustered</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.93240371696811541</span><span class="p">,</span> <span class="mf">0.91912906363537572</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a little worse than the original HDBSCAN, but it is unsurprising
+that you are going to be wrong more often if you make more predictions.
+The question is how much more of the data is HDBSCAN actually
+clustering? Previously we were clustering only 17% of the data.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">clustered</span><span class="p">)</span> <span class="o">/</span> <span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.99164285714285716</span>
+</pre></div>
+</div>
+<p>Now we are clustering over 99% of the data! And our results in terms of
+adjusted Rand score and adjusted mutual information are in line with the
+current state of the art techniques using convolutional autoencoder
+techniques. That’s not bad for an approach that is simply viewing the
+data as arbitrary 784 dimensional vectors.</p>
+<p>Hopefully this has outlined how UMAP can be beneficial for clustering.
+As with all thing care must be taken, but clearly UMAP can provide
+significantly better clustering results when used judiciously.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="supervised.html" title="previous chapter (use the left arrow)">UMAP for Supervised Dimension Reduction and Metric Learning</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="faq.html" title="next chapter (use the right arrow)">Frequently Asked Questions</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently Asked Questions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="supervised.html" title="UMAP for Supervised Dimension Reduction and Metric Learning"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">scikit-tda 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Libraries</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, Nathaniel Saul. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

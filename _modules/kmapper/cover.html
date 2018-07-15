@@ -18,7 +18,7 @@
     <title>kmapper.cover &#8212; scikit-tda 0.0.2 documentation</title>
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -98,18 +98,30 @@
   <h1>Source code for kmapper.cover</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># TODO: Incorporate @pablodecm&#39;s cover API.</span>
 
+
 <div class="viewcode-block" id="Cover"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.cover.Cover">[docs]</a><span class="k">class</span> <span class="nc">Cover</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Helper class that defines the default covering scheme</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nr_cubes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">overlap_perc</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span> <span class="o">=</span> <span class="n">nr_cubes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">overlap_perc</span> <span class="o">=</span> <span class="n">overlap_perc</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">n_cubes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                 <span class="n">perc_overlap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                 <span class="c1"># Deprecated parameters:</span>
+                 <span class="n">nr_cubes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">overlap_perc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span> <span class="o">=</span> <span class="n">nr_cubes</span> <span class="k">if</span> <span class="n">nr_cubes</span> <span class="k">else</span> <span class="n">n_cubes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">perc_overlap</span> <span class="o">=</span> <span class="n">overlap_perc</span> <span class="k">if</span> <span class="n">overlap_perc</span> <span class="k">else</span> <span class="n">perc_overlap</span>
+
+        <span class="k">if</span> <span class="n">overlap_perc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">nr_cubes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Arguements `overlap_perc` and `nr_cubes` have been replaced with `perc_overlap` and `n_cubes`. Use `perc_overlap` and `n_cubes` instead. They will be removed in future releases.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Cover.define_bins"><a class="viewcode-back" href="../../libraries/kepler-mapper/reference.html#kmapper.cover.Cover.define_bins">[docs]</a>    <span class="k">def</span> <span class="nf">define_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns an iterable of all bins in the cover.</span>
@@ -125,11 +137,11 @@
         <span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">indexless_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
                   <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">indexless_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
-        <span class="c1"># We chop up the min-max column ranges into &#39;nr_cubes&#39; parts</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span>
+        <span class="c1"># We chop up the min-max column ranges into &#39;n_cubes&#39; parts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span>
 
         <span class="c1"># We calculate the overlapping windows distance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">overlap_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlap_perc</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_dist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlap_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perc_overlap</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_dist</span>
 
         <span class="c1"># We find our starting point</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -139,12 +151,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">di</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">di</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">cubes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">cubes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span><span class="p">,</span> <span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">) dimensions specified but </span><span class="si">{}</span><span class="s2"> dimensions needing specification. If you supply specific number of cubes for each dimension, please supply the correct number.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span><span class="p">)</span>
-            <span class="n">cubes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_cubes</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span><span class="p">,</span> <span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">) dimensions specified but </span><span class="si">{}</span><span class="s2"> dimensions needing specification. If you supply specific number of cubes for each dimension, please supply the correct number.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nr_dimensions</span><span class="p">)</span>
+            <span class="n">cubes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cubes</span>
 
         <span class="n">coordinates</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">,</span> <span class="n">product</span><span class="p">(</span>
             <span class="o">*</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cubes</span><span class="p">)))</span>

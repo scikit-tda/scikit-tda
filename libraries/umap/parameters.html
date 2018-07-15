@@ -1,0 +1,529 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Basic UMAP Parameters &#8212; scikit-tda 0.0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Transforming New Data with UMAP" href="transform.html" />
+    <link rel="prev" title="How to Use UMAP" href="basic_usage.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Transforming New Data with UMAP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="basic_usage.html" title="How to Use UMAP"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">scikit-tda 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Libraries</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Libraries</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kepler-mapper/index.html">KeplerMapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../persim/index.html">Persim</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="basic_usage.html"
+                        title="previous chapter">How to Use UMAP</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="transform.html"
+                        title="next chapter">Transforming New Data with UMAP</a></p>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Libraries</a></li>
+              
+                <li><a href="index.html">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a></li>
+              
+              <li>Basic UMAP Parameters</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="basic-umap-parameters">
+<h1>Basic UMAP Parameters<a class="headerlink" href="#basic-umap-parameters" title="Permalink to this headline">¶</a></h1>
+<p>UMAP is a fairly flexible non-linear dimension reduction algorithm. It
+seeks to learn the manifold structure of your data and find a low
+dimensional embedding that preserves the essential topological structure
+of that manifold. In this notebook we will generate some visualisable
+4-dimensional data, demonstrate how to use UMAP to provide a
+2-dimensional representation of it, and then look at how various UMAP
+parameters can impact the resulting embedding. This documentation is
+based on the work of Philippe Rivière for visionscarto.net.</p>
+<p>To start we’ll need some basic libraries. First <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will be needed
+for basic array manipulation. Since we will be visualising the results
+we will need <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>. Finally we will need
+<code class="docutils literal notranslate"><span class="pre">umap</span></code> for doing the dimension reduction itself.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">umap</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;poster&#39;</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">14</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+</pre></div>
+</div>
+<p>Next we will need some data to embed into a lower dimensional
+representation. To make the 4-dimensional data “visualisable” we will
+generate data uniformly at random from a 4-dimensional cube such that we
+can interpret a sample as a tuple of (R,G,B,a) values specifying a color
+(and translucency). Thus when we plot low dimensional representations
+each point can colored according to its 4-dimensional value. For this we
+can use <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. We will fix a random seed for the sake of
+consistency.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we need to find a low dimensional representation of the data. As in
+the Basic Usage documentation, we can do this by using the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">fit_transform()</span></code> method on a <code class="xref py py-class docutils literal notranslate"><span class="pre">UMAP</span></code> object.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fit</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">()</span>
+<span class="o">%</span><span class="n">time</span> <span class="n">u</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CPU</span> <span class="n">times</span><span class="p">:</span> <span class="n">user</span> <span class="mf">7.73</span> <span class="n">s</span><span class="p">,</span> <span class="n">sys</span><span class="p">:</span> <span class="mi">211</span> <span class="n">ms</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="mf">7.94</span> <span class="n">s</span>
+<span class="n">Wall</span> <span class="n">time</span><span class="p">:</span> <span class="mf">6.8</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>The resulting value <code class="docutils literal notranslate"><span class="pre">u</span></code> is a 2-dimensional representation of the data.
+We can visualise the result by using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to draw a scatter
+plot of <code class="docutils literal notranslate"><span class="pre">u</span></code>. We can color each point of the scatter plot by the
+associated 4-dimensional color from the source data.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;UMAP embedding of random colours&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_8_1.png" src="../../_images/parameters_8_1.png" />
+<p>As you can see the result is that the data is placed in 2-dimensional
+space such that points that were nearby in in 4-dimensional space (i.e.
+are similar colors) are kept close together. Since we drew a random
+selection of points in the color cube there is a certain amount of
+induced structure from where the random points happened to clump up in
+color space.</p>
+<p>UMAP has several hyperparameters that can have a significant impact on
+the resulting embedding. In this notebook we will be covering the four
+major ones:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">min_dist</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">n_components</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">metric</span></code></li>
+</ul>
+<p>Each of these parameters has a distinct effect, and we will look at each
+in turn. To make exploration simpler we will first write a short utility
+function that can fit the data with UMAP given a set of parameter
+choices, and plot the result.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">draw_umap</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">fit</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span>
+        <span class="n">n_neighbors</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">,</span>
+        <span class="n">min_dist</span><span class="o">=</span><span class="n">min_dist</span><span class="p">,</span>
+        <span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="n">metric</span>
+    <span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)),</span> <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="n-neighbors">
+<h2><code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code><a class="headerlink" href="#n-neighbors" title="Permalink to this headline">¶</a></h2>
+<p>This parameter controls how UMAP balances local versus global structure
+in the data. It does this by constraining the size of the local
+neighborhood UMAP will look at when attempting to learn the manifold
+structure of the data. This means that low values of <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>
+will force UMAP to concentrate on very local structure (potentially to
+the detriment of the big picture), while large values will push UMAP to
+look at larger neighborhoods of each point when estimating the manifold
+structure of the data, loosing fine detail structure for the sake of
+getting the broader of the data.</p>
+<p>We can see that in practice by fitting our dataset with UMAP using a
+range of <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> values. The default value of <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>
+for UMAP (as used above) is 15, but we will look at values ranging from
+2 (a very local view of the manifold) up to 200 (a quarter of the data).</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+    <span class="n">draw_umap</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;n_neighbors = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_13_1.png" src="../../_images/parameters_13_1.png" />
+<img alt="../../_images/parameters_13_2.png" src="../../_images/parameters_13_2.png" />
+<img alt="../../_images/parameters_13_3.png" src="../../_images/parameters_13_3.png" />
+<img alt="../../_images/parameters_13_4.png" src="../../_images/parameters_13_4.png" />
+<img alt="../../_images/parameters_13_5.png" src="../../_images/parameters_13_5.png" />
+<img alt="../../_images/parameters_13_6.png" src="../../_images/parameters_13_6.png" />
+<img alt="../../_images/parameters_13_7.png" src="../../_images/parameters_13_7.png" />
+<p>With a value of <code class="docutils literal notranslate"><span class="pre">n_neighbors=2</span></code> we see that UMAP merely glues together
+small chains, but due to the narrow/local view, fails to see how those
+connect together. It also leaves many different components (and even
+singleton points). This represents the fact that from a fine detail
+point of view the data is very disconnected and scattered throughout the
+space.</p>
+<p>As <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> is increased UMAP manages to see more of the overall
+structure of the data, gluing more components together, and better
+coverying the broader structure of the data. By the stage of
+<code class="docutils literal notranslate"><span class="pre">n_neighbors=20</span></code> we have a fairly good overall view of the data
+showing how the various colors interelate to each other over the whole
+dataset.</p>
+<p>As <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> increases further more and more focus in placed on
+the overall structure of the data. This results in, with
+<code class="docutils literal notranslate"><span class="pre">n_neighbors=200</span></code> a plot where the overall structure (blues, greens,
+and reds; high luminance versus low) is well captured, but at the loss
+of some of the finer local sturcture (individual colors are no longer
+necessarily immediately near their closest color match).</p>
+<p>This effect well exemplifies the local/global tradeoff provided by
+<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>.</p>
+</div>
+<div class="section" id="min-dist">
+<h2><code class="docutils literal notranslate"><span class="pre">min_dist</span></code><a class="headerlink" href="#min-dist" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">min_dist</span></code> parameter controls how tightly UMAP is allowed to pack
+points together. It, quite literally, provides the minimum distance
+apart that points are allowed to be in the low dimensional
+representation. This means that low values of <code class="docutils literal notranslate"><span class="pre">min_dist</span></code> will result
+in clumpier embeddings. This can be useful if you are interested in
+clustering, or in finer topological structure. Larger values of
+<code class="docutils literal notranslate"><span class="pre">min_dist</span></code> will prevent UMAP from packing point together and will
+focus instead on the preservation of the broad topological structure
+instead.</p>
+<p>The default value for <code class="docutils literal notranslate"><span class="pre">min_dist</span></code> (as used above) is 0.1. We will look
+at a range of values from 0.0 through to 0.99.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">):</span>
+    <span class="n">draw_umap</span><span class="p">(</span><span class="n">min_dist</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;min_dist = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_16_1.png" src="../../_images/parameters_16_1.png" />
+<img alt="../../_images/parameters_16_2.png" src="../../_images/parameters_16_2.png" />
+<img alt="../../_images/parameters_16_3.png" src="../../_images/parameters_16_3.png" />
+<img alt="../../_images/parameters_16_4.png" src="../../_images/parameters_16_4.png" />
+<img alt="../../_images/parameters_16_5.png" src="../../_images/parameters_16_5.png" />
+<img alt="../../_images/parameters_16_6.png" src="../../_images/parameters_16_6.png" />
+<p>Here we see that with <code class="docutils literal notranslate"><span class="pre">min_dist=0.0</span></code> UMAP manages to find small
+connected components, clumps and strings in the data, and emphasises
+these features in the resulting embedding. As <code class="docutils literal notranslate"><span class="pre">min_dist</span></code> is increased
+these structures are pushed apart into softer more general features,
+providing a better overarching view of the data at the loss of the more
+detailed topological structure.</p>
+</div>
+<div class="section" id="n-components">
+<h2><code class="docutils literal notranslate"><span class="pre">n_components</span></code><a class="headerlink" href="#n-components" title="Permalink to this headline">¶</a></h2>
+<p>As is standard for many <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> dimension reduction algorithms
+UMAP provides a <code class="docutils literal notranslate"><span class="pre">n_components</span></code> parameter option that allows the user
+to determine the dimensionality of the reduced dimension space we will
+be embedding the data into. Unlike some other visualisation algorithms
+such as t-SNE UMAP scales well in embedding dimension, so you can use it
+for more than just visualisation in 2- or 3-dimensions.</p>
+<p>For the purposes of this demonstration (so that we can see the effects
+of the parameter) we will only be looking at 1-dimensional and
+3-dimensional embeddings, which we have some hope of visualizing.</p>
+<p>First of all we will set <code class="docutils literal notranslate"><span class="pre">n_components</span></code> to 1, forcing UMAP to embed
+the data in a line. For visualisation purposes we will randomly
+distribute the data on the y-axis to provide some separation between
+points.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">draw_umap</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;n_components = 1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_19_1.png" src="../../_images/parameters_19_1.png" />
+<p>Now we will try <code class="docutils literal notranslate"><span class="pre">n_components=3</span></code>. For visualisation we will make use
+of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>’s basic 3-dimensional plotting.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">draw_umap</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;n_components = 3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">umap_dev</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">6</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">sklearn</span><span class="o">/</span><span class="n">metrics</span><span class="o">/</span><span class="n">pairwise</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">257</span><span class="p">:</span> <span class="ne">RuntimeWarning</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">value</span> <span class="n">encountered</span> <span class="ow">in</span> <span class="n">sqrt</span>
+  <span class="k">return</span> <span class="n">distances</span> <span class="k">if</span> <span class="n">squared</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_21_1.png" src="../../_images/parameters_21_1.png" />
+<p>Here we can see that with more dimensions in which to work UMAP has an
+easier time separating out the colors in a way that respects the
+topological structure of the data.</p>
+<p>As mentioned, there is really no requirement to stop at <code class="docutils literal notranslate"><span class="pre">n_components</span></code>
+at 3. If you are interested in (density based) clustering, or other
+machine learning techniques, it can be beneficial to pick a larger
+embedding dimension (say 10, or 50) closer to the the dimension of the
+underlying manifold on which your data lies.</p>
+</div>
+<div class="section" id="metric">
+<h2><code class="docutils literal notranslate"><span class="pre">metric</span></code><a class="headerlink" href="#metric" title="Permalink to this headline">¶</a></h2>
+<p>The final UMAP parameter we will be considering in this notebook is the
+<code class="docutils literal notranslate"><span class="pre">metric</span></code> parameter. This controls how distance is computed in the
+ambient space of the input data. By default UMAP supports a wide variety
+of metrics, including:</p>
+<p><strong>Minkowski style metrics</strong></p>
+<ul class="simple">
+<li>euclidean</li>
+<li>manhattan</li>
+<li>chebyshev</li>
+<li>minkowski</li>
+</ul>
+<p><strong>Miscellaneous spatial metrics</strong></p>
+<ul class="simple">
+<li>canberra</li>
+<li>braycurtis</li>
+<li>haversine</li>
+</ul>
+<p><strong>Normalized spatial metrics</strong></p>
+<ul class="simple">
+<li>mahalanobis</li>
+<li>wminkowski</li>
+<li>seuclidean</li>
+</ul>
+<p><strong>Angular and correlation metrics</strong></p>
+<ul class="simple">
+<li>cosine</li>
+<li>correlation</li>
+</ul>
+<p><strong>Metrics for binary data</strong></p>
+<ul class="simple">
+<li>hamming</li>
+<li>jaccard</li>
+<li>dice</li>
+<li>russelrao</li>
+<li>kulsinski</li>
+<li>rogerstanimoto</li>
+<li>sokalmichener</li>
+<li>sokalsneath</li>
+<li>yule</li>
+</ul>
+<p>Any of which can be specified by setting <code class="docutils literal notranslate"><span class="pre">metric='&lt;metric</span> <span class="pre">name&gt;'</span></code>; for
+example to use cosine distance as the metric you would use
+<code class="docutils literal notranslate"><span class="pre">metric='cosine'</span></code>.</p>
+<p>UMAP offers more than this however – it supports custom user defined
+metrics as long as those metrics can be compiled in <code class="docutils literal notranslate"><span class="pre">nopython</span></code> mode by
+numba. For this notebook we will be looking at such custom metrics. To
+define such metrics we’ll need numba …</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numba</span>
+</pre></div>
+</div>
+<p>For our first custom metric we’ll define the distance to be the absolute
+value of difference in the red channel.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">red_channel_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>To get more adventurous it will be useful to have some colorspace
+conversion – to keep things simple we’ll just use HSL formulas to
+extract the hue, saturation, and lightness from an (R,G,B) tuple.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">hue</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">cmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span>
+    <span class="k">if</span> <span class="n">cmax</span> <span class="o">==</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">g</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta</span><span class="p">)</span> <span class="o">%</span> <span class="mi">6</span>
+    <span class="k">elif</span> <span class="n">cmax</span> <span class="o">==</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">b</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">lightness</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">cmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">cmax</span> <span class="o">+</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">saturation</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">cmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">chroma</span> <span class="o">=</span> <span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span>
+    <span class="n">light</span> <span class="o">=</span> <span class="n">lightness</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">light</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">chroma</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">light</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>With that in hand we can define three extra distances. The first simply
+measures the difference in hue, the second measures the euclidean
+distance in a combined saturation and lightness space, while the third
+measures distance in the full HSL space.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">hue_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">hue</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="n">hue</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="o">%</span> <span class="mi">6</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">diff</span> <span class="o">+</span> <span class="mi">6</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">diff</span>
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">sl_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">a_sat</span> <span class="o">=</span> <span class="n">saturation</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">b_sat</span> <span class="o">=</span> <span class="n">saturation</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">a_light</span> <span class="o">=</span> <span class="n">lightness</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">b_light</span> <span class="o">=</span> <span class="n">lightness</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a_sat</span> <span class="o">-</span> <span class="n">b_sat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a_light</span> <span class="o">-</span> <span class="n">b_light</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">hsl_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">a_sat</span> <span class="o">=</span> <span class="n">saturation</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">b_sat</span> <span class="o">=</span> <span class="n">saturation</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">a_light</span> <span class="o">=</span> <span class="n">lightness</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">b_light</span> <span class="o">=</span> <span class="n">lightness</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">a_hue</span> <span class="o">=</span> <span class="n">hue</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">b_hue</span> <span class="o">=</span> <span class="n">hue</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a_sat</span> <span class="o">-</span> <span class="n">b_sat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a_light</span> <span class="o">-</span> <span class="n">b_light</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(((</span><span class="n">a_hue</span> <span class="o">-</span> <span class="n">b_hue</span><span class="p">)</span> <span class="o">%</span> <span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With such custom metrics in hand we can get UMAP to embed the data using
+those metrics to measure distance between our input data points. Note
+that <code class="docutils literal notranslate"><span class="pre">numba</span></code> provides significant flexibility in what we can do in
+defining distance functions. Despite this we retain the high performance
+we expect from UMAP even using such custom functions.</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">red_channel_dist</span><span class="p">,</span> <span class="n">sl_dist</span><span class="p">,</span> <span class="n">hue_dist</span><span class="p">,</span> <span class="n">hsl_dist</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">draw_umap</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;metric = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/parameters_32_1.png" src="../../_images/parameters_32_1.png" />
+<img alt="../../_images/parameters_32_2.png" src="../../_images/parameters_32_2.png" />
+<img alt="../../_images/parameters_32_3.png" src="../../_images/parameters_32_3.png" />
+<img alt="../../_images/parameters_32_4.png" src="../../_images/parameters_32_4.png" />
+<img alt="../../_images/parameters_32_5.png" src="../../_images/parameters_32_5.png" />
+<p>And here we can see the effects of the metrics quite clearly. The pure
+red channel correctly see the data as living on a one dimensional
+manifold, the hue metric interprets the data as living in a circle, and
+the HSL metric fattens out the circle according to the saturation and
+lightness. This provides a reasonable demonstration of the power and
+flexibility of UMAP in understanding the underlying topology of data,
+and finding a suitable low dimensional representation of that topology.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="basic_usage.html" title="previous chapter (use the left arrow)">How to Use UMAP</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="transform.html" title="next chapter (use the right arrow)">Transforming New Data with UMAP</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Transforming New Data with UMAP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="basic_usage.html" title="How to Use UMAP"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">scikit-tda 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Libraries</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, Nathaniel Saul. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

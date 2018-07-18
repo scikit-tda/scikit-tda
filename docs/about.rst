@@ -1,5 +1,5 @@
 About
-------
+=========
 
 This entire project hinges on quality documentation.  
 
@@ -15,7 +15,7 @@ This entire project hinges on quality documentation.
 
 
 Guidelines
-=============
+-------------
 
 All libraries in scikit-tda have some semblence of consistency.  In general, we follow the scikit-learn [coding guidelines](http://scikit-learn.org/stable/developers/contributing.html#coding-guidelines).
 

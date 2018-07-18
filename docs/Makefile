@@ -17,8 +17,4 @@ help:
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
-	# rm libraries/kepler-mapper/* libraries/persim/*
-	cp -r ../libraries/kepler-mapper/docs/*.rst libraries/kepler-mapper
-	cp -r ../libraries/persim/docs/*.rst libraries/persim
-	cp -r ../libraries/umap/doc/* libraries/umap 
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Scikit-TDA!
+Scikit-TDA
 ======================================
 
 
@@ -50,14 +50,19 @@ If you have any issues with the library, please let us know with a github issue,
    self
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
+    :caption: Libraries
 
-    about
-    libraries/index
+    libraries/kepler-mapper
+    libraries/ripser
+    libraries/umap
+    libraries/persim
+    libraries/tadasets
+    libraries/cechbook
 
 .. toctree::
     :maxdepth: 1
-    :caption: tutorials
+    :caption: Tutorials
 
     tutorials/diagrams-on-umap
     tutorials/visualizing-cycles-with-umap

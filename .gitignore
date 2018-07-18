@@ -1,2 +1,5 @@
 scikit_tda.egg-info/
 venv/
+.DS_Store
+_build
+_static

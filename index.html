@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scikit-TDA! &mdash; scikit-tda 0.0.1 documentation</title>
+  <title>Scikit-TDA &mdash; scikit-tda 0.0.1 documentation</title>
   
 
   
@@ -26,10 +26,9 @@
 
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About" href="about.html" /> 
+    <link rel="next" title="Kepler Mapper" href="libraries/kepler-mapper.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,13 +78,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Scikit-TDA!</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scikit-TDA</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Libraries</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libraries/index.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/kepler-mapper.html">Kepler Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/ripser.html">Ripser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/umap.html">UMAP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/persim.html">Persim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/tadasets.html">TaDAsets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/cechbook.html">Cechbook</a></li>
 </ul>
-<p class="caption"><span class="caption-text">tutorials</span></p>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/diagrams-on-umap.html">Persistance Diagrams of Reduced Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/visualizing-cycles-with-umap.html">Extracting cycles and visualizing them on UMAP reduced dimension</a></li>
@@ -135,7 +139,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Scikit-TDA!</li>
+      <li>Scikit-TDA</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,54 +159,58 @@
            <div itemprop="articleBody">
             
   <div class="section" id="scikit-tda">
-<h1>Scikit-TDA!<a class="headerlink" href="#scikit-tda" title="Permalink to this headline">¶</a></h1>
-<p>scikit-tda is a home for compatible TDA libraries intended for non-researchers. We provide detailed documentation and unified APIs so that using TDA can be used in the wild.</p>
+<h1>Scikit-TDA<a class="headerlink" href="#scikit-tda" title="Permalink to this headline">¶</a></h1>
+<p>There is a growing need for an ecosystem of TDA libraries that is approachable to non-researchers. This project aims to provide a curated library for Python tools that are widely usable and easily approachable. Each is easy to install through traditional Python mechanisms, portable to all platforms, requires no dependencies outside of what is available on Pypi, has comprehensive documentation , is open source, provides an issue tracker and is responsive to questions, and exposes an intuitive API for developers familiar with the Python scientific computing ecosystem.</p>
+<p>Each project can stand alone, or be used as part of the scikit-tda bundle. This project curates the group of packages and houses extensive documentation and examples on how each package can be used together.</p>
+<p>Scikit-TDA is a home for compatible TDA libraries intended for non-researchers. We provide detailed documentation and unified APIs so that using TDA can be used in the wild.</p>
 <ul class="simple">
-<li>Mapper</li>
-<li>Persistent Homology</li>
-<li>Persistence Images</li>
+<li>Mapper ecosystem,</li>
+<li>Persistent Homology ecosystem,</li>
 <li>Dimensionality Reduction</li>
 </ul>
+<p>The TDA ecosystem is rapidly growing. Below is the list of current projects, either built or in development, to be included in scikit-tda.</p>
+<ul class="simple">
+<li><strong>Ripser</strong> - Data to diagrams in one line</li>
+<li><strong>Persim</strong> - Easy Persistence Images</li>
+<li><strong>UMAP</strong> - Mathematically justified dimensionality reduction</li>
+<li><strong>Kepler Mapper</strong> - Mapper framework integrated into sklearn</li>
+</ul>
+<div class="section" id="under-development">
+<h2>Under Development<a class="headerlink" href="#under-development" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>Diagrams</strong> - Comparison &amp; Visualization of diagrams</li>
+<li><strong>TaDAsets</strong> - Data sets designed for TDA</li>
+<li><strong>Cechmate</strong> - Custom filtrations builder</li>
+</ul>
 <div class="section" id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<h3>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
 <p>Installation of all libraries can be done directly from Pypi in one command.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">scikit-tda</span></code></p>
 </div>
 <div class="section" id="issues-contributions">
-<h2>Issues &amp; Contributions<a class="headerlink" href="#issues-contributions" title="Permalink to this headline">¶</a></h2>
+<h3>Issues &amp; Contributions<a class="headerlink" href="#issues-contributions" title="Permalink to this headline">¶</a></h3>
 <p>If you have any issues with the library, please let us know with a github issue, we will try to be responsive as possible.</p>
-<p>libraries/kepler-mapper
-libraries/ripser
-libraries/umap
-libraries/tadasets
-libraries/cechbook
-libraries/persim</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Libraries</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="about.html#guidelines">Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="libraries/index.html">Libraries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="libraries/kepler-mapper.html">Kepler Mapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libraries/ripser.html">Ripser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libraries/umap.html">UMAP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libraries/tadasets.html">TaDAsets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libraries/cechbook.html">Cechbook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libraries/persim.html">Persim</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/kepler-mapper.html">Kepler Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/ripser.html">Ripser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/umap.html">UMAP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/persim.html">Persim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/tadasets.html">TaDAsets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/cechbook.html">Cechbook</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">tutorials</span></p>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/diagrams-on-umap.html">Persistance Diagrams of Reduced Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/visualizing-cycles-with-umap.html">Extracting cycles and visualizing them on UMAP reduced dimension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/classification-of-persistence-images.html">Using persistence images for classification</a></li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -223,7 +231,7 @@ libraries/persim</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="libraries/kepler-mapper.html" class="btn btn-neutral float-right" title="Kepler Mapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

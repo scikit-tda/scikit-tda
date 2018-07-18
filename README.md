@@ -1,22 +1,22 @@
-This is essentially two projects, one is the conglomerate documentation and the other is the conglomerate packages.
-
-Installing all packages is straight forward, it's hard to incorporate all of the documentation.  What is the best way to do this?
-
-Should we have all the docs included as well? No point in hosting them all twice?
-
-
-
 # Scikit-TDA
 
-Scikit-TDA is an opinionated collection of libraries for Topological Data Analysis. The user interfaces across all included libraries are standardized and compatible with numpy and scikit-learn.
+There is a growing need for an ecosystem of TDA libraries that is approachable to non-researchers. This project aims to provide a curated library for Python tools that are widely usable and easily approachable. Each is easy to install through traditional Python mechanisms, portable to all platforms, requires no dependencies outside of what is available on Pypi, has comprehensive documentation , is open source, provides an issue tracker and is responsive to questions, and exposes an intuitive API for developers familiar with the Python scientific computing ecosystem.
 
-This is currently a WIP. Documentation and examples will be coming this summer.
+Each project can stand alone, or be used as part of the scikit-tda bundle. This project curates the group of packages and houses extensive documentation and examples on how each package can be used together.
 
-Currently, we include
-- [Kepler Mapper](https://github.com/MLWave/kepler-mapper) for mapper and visualization.
-- [UMAP](https://github.com/lmcinnes/UMAP) for dimensionality reduction.
-- [ripser](https://github.com/ctralie/ripser) for persistent homology.
-- [persim](https://github.com/sauln/persim) for persistence images.
+Scikit-TDA is a home for compatible TDA libraries intended for non-researchers. We provide detailed documentation and unified APIs so that using TDA can be used in the wild. The TDA ecosystem is rapidly growing. Below is the list of current projects, either built or in development, to be included in scikit-tda.
+
+- [Ripser](https://pypi.org/project/ripser/) - Data to diagrams in one line
+- [Persim](https://pypi.org/project/persim/) - Easy Persistence Images
+- [UMAP](https://pypi.org/project/umap-learn/) - Mathematically justified dimensionality reduction
+- [Kepler Mapper](https://pypi.org/project/kmapper/) - Mapper framework integrated into sklearn
+
+
+The following packages are currently in development:
+
+- Cechmate - Custom filtrations builder
+- Diagrams - Comparison & Visualization of diagrams
+- TaDAsets - Data sets designed for TDA
 
 
 To install all these libraries
@@ -24,18 +24,6 @@ To install all these libraries
     pip install scikit-tda
 ```
 
+## Contributions
 
-The libraries will then be accessible from `sktda`
-
-``` Python
-    import sktda.kmapper as km
-```
-
-*It is not clear what the best way to do this is.  Should all libraries exist at the top level, or should we reorganize the libraries so they make more sense as a group?* 
-
-# Adding new libraries
-
-All the magic happens in [Makefile](Makefile).
-
-It works by including each library as a submodule, 
-
+This project is entirely a work in progress and still in the coneptual phase. We hope to assemble an ecosystem of TDA libraries, complete with documentation and examples, that is approachable to people outside the field of Algebraic Topology.  If you would like to contribute and have ideas for how to do so, please reach out!

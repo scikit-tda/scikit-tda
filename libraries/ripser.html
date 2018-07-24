@@ -164,10 +164,18 @@
             
   <div class="section" id="ripser">
 <h1>Ripser<a class="headerlink" href="#ripser" title="Permalink to this headline">¶</a></h1>
-<p>A page description about Ripser and how it interacts with the rest of the libraries.</p>
+<p>The Ripser Python library is a wrapper around the amazing Ripser C++ library. It is super easy to install, provides an easy face, and is blazingly fast.</p>
+<p>For complete documentation, see <a class="reference external" href="http://ripser.scikit-tda.org">Ripser</a>.</p>
 <div class="section" id="quick-start">
 <h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<p>Some basic information on getting set up.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ripser</span> <span class="k">import</span> <span class="n">ripser</span><span class="p">,</span> <span class="n">plot_dgms</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">diagrams</span> <span class="o">=</span> <span class="n">ripser</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="s1">&#39;dgms&#39;</span><span class="p">]</span>
+<span class="n">plot_dgms</span><span class="p">(</span><span class="n">diagrams</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 

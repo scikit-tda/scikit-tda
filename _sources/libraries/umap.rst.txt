@@ -1,12 +1,19 @@
 UMAP
 ======================================
 
-A page description about UMAP and how it interacts with the rest of the libraries.
+UMAP provides a dimensionality reduction algorithm that is built on theory as beautiful as the results it produces. 
 
-
-
+For complete documentation, see UMAP_. 
 
 Quick start
 --------------
 
-Some basic information on getting set up.
+.. code:: python
+
+    import umap
+    import numpy as np
+
+    data = np.random.random((1000,10))
+    reduced = UMAP().fit_transform(data)
+
+.. _UMAP: https://umap.scikit-tda.org

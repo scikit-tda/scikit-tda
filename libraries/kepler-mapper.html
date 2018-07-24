@@ -164,10 +164,29 @@
             
   <div class="section" id="kepler-mapper">
 <h1>Kepler Mapper<a class="headerlink" href="#kepler-mapper" title="Permalink to this headline">¶</a></h1>
-<p>A page description about Kepler Mapper and how it interacts with the rest of the libraries.</p>
+<p>Kepler Mapper implements the Mapper algorithm (Singh, 2007). It provides a flexible API that leverages scikit-learn as much as possible. Additionally, the visualization interface built on D3 provides an interactive environment for exploring data.</p>
+<p>For complete documentation, see <a class="reference external" href="https://kepler-mapper.scikit-tda.org">KeplerMapper</a>.</p>
 <div class="section" id="quick-start">
 <h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<p>Some basic information on getting set up.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">kmapper</span> <span class="k">as</span> <span class="nn">km</span>
+
+<span class="c1"># Some sample data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Initialize</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">KeplerMapper</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Construct lens on X-axis</span>
+<span class="n">lens</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Construct the mapper graph with a lens cover of 10 cubes</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lens</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">nr_cubes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Visualize it and save to html files</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">path_html</span><span class="o">=</span><span class="s2">&quot;keplermapper_output.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 

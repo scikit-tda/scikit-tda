@@ -164,10 +164,17 @@
             
   <div class="section" id="umap">
 <h1>UMAP<a class="headerlink" href="#umap" title="Permalink to this headline">¶</a></h1>
-<p>A page description about UMAP and how it interacts with the rest of the libraries.</p>
+<p>UMAP provides a dimensionality reduction algorithm that is built on theory as beautiful as the results it produces.</p>
+<p>For complete documentation, see <a class="reference external" href="https://umap.scikit-tda.org">UMAP</a>.</p>
 <div class="section" id="quick-start">
 <h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<p>Some basic information on getting set up.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">reduced</span> <span class="o">=</span> <span class="n">UMAP</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -19,4 +19,4 @@ gh-pages:
 	git add -A
 
 	echo "commit and deploy"
-	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push docs gh-pages ; git checkout master
+	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push docs master; git checkout master

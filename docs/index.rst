@@ -13,16 +13,12 @@ Each project can stand alone, or be used as part of the scikit-tda bundle. This 
 
 Scikit-TDA is a home for compatible TDA libraries intended for non-researchers. We provide detailed documentation and unified APIs so that using TDA can be used in the wild.
 
-- Mapper ecosystem,
-- Persistent Homology ecosystem,
-- Dimensionality Reduction
-
 The TDA ecosystem is rapidly growing. Below is the list of current projects, either built or in development, to be included in scikit-tda.
 
-- **Ripser** - Data to diagrams in one line
-- **Persim** - Easy Persistence Images
-- **UMAP** - Mathematically justified dimensionality reduction
-- **Kepler Mapper** - Mapper framework integrated into sklearn
+- Ripser_  - Data to diagrams in one line
+- Persim_ - Easy Persistence Images
+- UMAP_ - Mathematically justified dimensionality reduction
+- Kepler-Mapper_ - Mapper framework integrated into sklearn
 
 Under Development
 ~~~~~~~~~~~~~~~~~~
@@ -75,3 +71,12 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. _Ripser: http://ripser.scikit-tda.org
+.. _Persim: http://persim.scikit-tda.org
+.. _UMAP: http://umap.scikit-tda.org
+.. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
+
+
+
+

@@ -6,13 +6,13 @@ with open('README.md') as f:
     long_description = f.read()
 
 setup(name='scikit-tda',
-      version='0.0.2',
+      version='0.0.3',
       description='Topological Data Analysis for humans',
       long_description=long_description,
       long_description_content_type="text/markdown",	
       author='Nathaniel Saul',
       author_email='nathaniel.saul@wsu.edu',
-      url='https://github.com/sauln/scikit-tda',
+      url='https://github.com/scikit-tda/scikit-tda',
       license='MIT',
       packages=['sktda'],
       include_package_data=True,
@@ -37,8 +37,11 @@ setup(name='scikit-tda',
         # Kepler Mapper
         'pillow', # for some kmapper examples
         'kmapper',
+
+        # tadasets
+        'tadasets',
       ],
-      python_requires='!=3.1,!=3.2,!=3.3',
+      python_requires='>3.3',
       classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',

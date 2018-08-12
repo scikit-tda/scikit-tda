@@ -12,7 +12,7 @@ This project aims to provide a curated library of TDA Python tools that are wide
 
 It is structured so that each package can stand alone or be used as part of the scikit-tda bundle. 
 
-Current packages availabe: 
+Current packages available: 
 
 - [Ripser](https://pypi.org/project/ripser/) - Data to diagrams in one line
 - [Persim](https://pypi.org/project/persim/) - Easy Persistence Images

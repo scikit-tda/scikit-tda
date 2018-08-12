@@ -6,26 +6,18 @@
 Scikit-TDA
 ======================================
 
+Scikit-TDA is a home for compatible TDA Python libraries intended for non-topologists. 
 
-There is a growing need for an ecosystem of TDA libraries that is approachable to non-researchers. This project aims to provide a curated library for Python tools that are widely usable and easily approachable. Each is easy to install through traditional Python mechanisms, portable to all platforms, requires no dependencies outside of what is available on Pypi, has comprehensive documentation , is open source, provides an issue tracker and is responsive to questions, and exposes an intuitive API for developers familiar with the Python scientific computing ecosystem.
+.. image:: https://openclipart.org/image/2400px/svg_to_png/293844/under-construction_geek_man_01.png
+    :width: 200px
+    :align: center
 
-Each project can stand alone, or be used as part of the scikit-tda bundle. This project curates the group of packages and houses extensive documentation and examples on how each package can be used together.
+Scikit-TDA is currently under construction. If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
 
-Scikit-TDA is a home for compatible TDA libraries intended for non-researchers. We provide detailed documentation and unified APIs so that using TDA can be used in the wild.
 
-The TDA ecosystem is rapidly growing. Below is the list of current projects, either built or in development, to be included in scikit-tda.
+This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
 
-- Ripser_  - Data to diagrams in one line
-- Persim_ - Easy Persistence Images
-- UMAP_ - Mathematically justified dimensionality reduction
-- Kepler-Mapper_ - Mapper framework integrated into sklearn
-
-Under Development
-~~~~~~~~~~~~~~~~~~
-
-- **Diagrams** - Comparison & Visualization of diagrams
-- **TaDAsets** - Data sets designed for TDA
-- **Cechmate** - Custom filtrations builder
+It is structured so that each package can stand alone or be used as part of the scikit-tda bundle. 
 
 Install
 ---------
@@ -41,20 +33,14 @@ If you have any issues with the library, please let us know with a github issue,
 
 
 .. toctree::
-   :hidden:
-
-   self
-
-.. toctree::
     :maxdepth: 1
     :caption: Libraries
 
-    libraries/kepler-mapper
-    libraries/ripser
-    libraries/umap
-    libraries/persim
-    libraries/tadasets
-    libraries/cechbook
+    Ripser - Data to diagrams in one line <https://ripser.scikit-tda.org>
+    Persim - Easy Persistence Images <https://persim.scikit-tda.org>
+    Kepler Mapper - Mapper framework integrated into sklearn <https://kepler-mapper.scikit-tda.org>
+    UMAP - Mathematically justified dimensionality reduction <https://umap-learn.readthedocs.io>
+    TaDAsets - Data sets for demonstrating TDA.<https://tadasets.scikit-tda.org>
 
 .. toctree::
     :maxdepth: 1
@@ -72,11 +58,15 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+.. _github: https://github.com/scikit-tda
+.. _twitter: https://twitter.com/scikit_tda
+.. _slack: https://scikit-tda.slack.com
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org
 .. _UMAP: http://umap.scikit-tda.org
 .. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
-
+.. _TaDAsets: https://tadasets.scikit-tda.org
 
 
 

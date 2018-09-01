@@ -6,7 +6,7 @@
 Scikit-TDA
 ======================================
 
-Scikit-TDA is a home for compatible TDA Python libraries intended for non-topologists. 
+Scikit-TDA is a home for Topological Data Analysis Python libraries intended for non-topologists. 
 
 .. image:: https://openclipart.org/image/2400px/svg_to_png/293844/under-construction_geek_man_01.png
     :width: 200px

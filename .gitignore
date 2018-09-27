@@ -3,3 +3,4 @@ venv/
 .DS_Store
 _build
 _static
+__pycache__

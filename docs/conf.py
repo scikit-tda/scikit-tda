@@ -19,14 +19,16 @@
 
 # -- Project information -----------------------------------------------------
 
+from sktda import __version__
+
 project = 'scikit-tda'
 copyright = '2018, Nathaniel Saul'
 author = 'Nathaniel Saul'
 
 # The short X.Y version
-version = ''
+version = __version__
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = __version__
 
 googleanalytics_id = 'UA-124965309-1'
 # -- General configuration ---------------------------------------------------

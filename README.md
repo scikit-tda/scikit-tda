@@ -1,5 +1,7 @@
 # Scikit-TDA
 
+[![DOI](https://zenodo.org/badge/129452930.svg)](https://zenodo.org/badge/latestdoi/129452930)
+
 Scikit-TDA is a home for compatible TDA Python libraries intended for non-topologists. 
 
 |   |   |

@@ -6,7 +6,7 @@ with open('README.md') as f:
     long_description = f.read()
 
 setup(name='scikit-tda',
-      version='0.0.3',
+      version='0.0.4',
       description='Topological Data Analysis for humans',
       long_description=long_description,
       long_description_content_type="text/markdown",	

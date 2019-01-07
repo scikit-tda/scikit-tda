@@ -33,3 +33,19 @@ To install all these libraries
 ## Contributions
 
 This project is entirely a work in progress and still in the conceptual phase. We hope to assemble an ecosystem of TDA libraries, complete with documentation and examples, that is approachable to people outside the field of Algebraic Topology.  If you would like to contribute and have ideas for how to do so, please reach out!
+
+## Citations
+
+If you would like to cite Scikit-TDA, please use the following citation/bibtex
+
+> Saul, Nathaniel and Chris, Tralie. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
+
+```
+@misc{scikittda2019,
+  author       = {Nathaniel Saul, Chris Tralie},
+  title        = {Scikit-TDA: Topological Data Analysis for Python},
+  year         = 2019,
+  doi          = {10.5281/zenodo.2533369},
+  url          = {https://doi.org/10.5281/zenodo.2533369}
+}
+```

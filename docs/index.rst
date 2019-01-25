@@ -15,40 +15,64 @@ Scikit-TDA is a home for Topological Data Analysis Python libraries intended for
 Scikit-TDA is currently under construction. If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
 
 
-This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
+.. toctree::
+    :maxdepth: 2
 
+    started
+    background
+    libraries
+    tutorials/index
+
+
+This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
 It is structured so that each package can stand alone or be used as part of the scikit-tda bundle. 
+
+In the :ref:`libraries` page, you'll find resources for each individual package including package level tutorials and API documentation. The :ref:`background` page provides brief background on the core concepts from TDA along with links to more comprehensive resources. The :ref:`tutorials` page provides a few tutorials that incorporate all of the tools.
 
 Install
 ---------
 
 Installation of all libraries can be done directly from Pypi in one command.
 
-``pip install scikit-tda``
 
-Issues & Contributions
-------------------------
+::
 
-If you have any issues with the library, please let us know with a github issue, we will try to be responsive as possible.
+  pip install scikit-tda
 
 
-.. toctree::
-    :maxdepth: 1
-    :caption: Libraries
 
-    Ripser - Data to diagrams in one line <https://ripser.scikit-tda.org>
-    Persim - Easy Persistence Images <https://persim.scikit-tda.org>
-    Kepler Mapper - Mapper framework integrated into sklearn <https://kepler-mapper.scikit-tda.org>
-    UMAP - Mathematically justified dimensionality reduction <https://umap-learn.readthedocs.io>
-    TaDAsets - Data sets for demonstrating TDA.<https://tadasets.scikit-tda.org>
 
-.. toctree::
-    :maxdepth: 1
-    :caption: Tutorials
+Contributions
+----------------
 
-    tutorials/diagrams-on-umap
-    tutorials/visualizing-cycles-with-umap
-    tutorials/classification-of-persistence-images
+This project is entirely a work in progress and still in the conceptual phase. 
+We hope to assemble an ecosystem of TDA libraries, complete with documentation and examples, that is approachable to people outside the field of Algebraic Topology.  
+If you would like to contribute and have ideas for how to do so, please reach out! 
+
+Please join the Slack channel `scikit-tda` and follow us on twitter `@scikit_tda <https://twitter.com/scikit_tda>`_.
+
+If you have any issues with the library, please let us know with a github_ issue. We will try to be responsive as possible.
+
+
+Citation
+-----------
+
+For the time being, if you would like to cite Scikit-TDA, please use the following citation/bibtex:
+
+    Saul, Nathaniel and Chris, Tralie. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
+
+
+::
+
+    @misc{scikittda2019,
+        author       = {Nathaniel Saul, Chris Tralie},
+        title        = {Scikit-TDA: Topological Data Analysis for Python},
+        year         = 2019,
+        doi          = {10.5281/zenodo.2533369},
+        url          = {https://doi.org/10.5281/zenodo.2533369}
+    }
+
+
 
 
 Indices and tables
@@ -64,9 +88,9 @@ Indices and tables
 .. _slack: https://scikit-tda.slack.com
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org
-.. _UMAP: http://umap.scikit-tda.org
 .. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
 .. _TaDAsets: https://tadasets.scikit-tda.org
+.. _UMAP: http://umap.scikit-tda.org
 
 
 

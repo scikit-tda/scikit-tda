@@ -17,12 +17,15 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 
+html_context = {}
+
 # -- Project information -----------------------------------------------------
+
 
 from sktda import __version__
 
 project = 'scikit-tda'
-copyright = '2018, Nathaniel Saul'
+copyright = '2019, Nathaniel Saul'
 author = 'Nathaniel Saul'
 
 # The short X.Y version
@@ -30,16 +33,25 @@ version = __version__
 # The full version, including alpha/beta/rc tags
 release = __version__
 
-googleanalytics_id = 'UA-124965309-1'
+
+html_context['google_code'] = 'UA-124965309-1'
+
+
 # -- General configuration ---------------------------------------------------
 
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
 
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
+# Add extensions to path for rstjinja
+import sys, os
+sys.path.append(os.path.abspath('extensions'))
+
+
+# Setup library data
+import json
+with open('data/libraries.json', 'r') as f:
+    libraries = json.load(f)
+
+html_context['libraries'] = libraries
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
@@ -50,7 +62,7 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'sphinxcontrib.googleanalytics',
+    'rstjinja'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -101,11 +113,9 @@ html_logo = 'logo.png'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_context = {
-    'css_files': [
-        '_static/theme_overrides.css',  # override wide tables in RTD theme
-        ],
-     }
+html_context['css_files'] = [
+    '_static/theme_overrides.css',  # override wide tables in RTD theme
+]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

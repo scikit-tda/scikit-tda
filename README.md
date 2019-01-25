@@ -38,7 +38,7 @@ This project is entirely a work in progress and still in the conceptual phase. W
 
 If you would like to cite Scikit-TDA, please use the following citation/bibtex
 
-> Saul, Nathaniel and Chris, Tralie. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
+> Saul, Nathaniel and Tralie, Chris. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
 
 ```
 @misc{scikittda2019,

@@ -59,13 +59,13 @@ Citation
 
 For the time being, if you would like to cite Scikit-TDA, please use the following citation/bibtex:
 
-    Saul, Nathaniel and Chris, Tralie. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
+    Saul, Nathaniel and Tralie, Chris. (2019). Scikit-TDA: Topological Data Analysis for Python. Zenodo. http://doi.org/10.5281/zenodo.2533369
 
 
 ::
 
     @misc{scikittda2019,
-        author       = {Nathaniel Saul, Chris Tralie},
+        author       = {Nathaniel Saul and Chris Tralie},
         title        = {Scikit-TDA: Topological Data Analysis for Python},
         year         = 2019,
         doi          = {10.5281/zenodo.2533369},

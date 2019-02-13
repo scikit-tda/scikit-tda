@@ -8,32 +8,34 @@ Scikit-TDA
 
 Scikit-TDA is a home for Topological Data Analysis Python libraries intended for non-topologists. 
 
-.. image:: https://openclipart.org/image/2400px/svg_to_png/293844/under-construction_geek_man_01.png
-    :width: 200px
-    :align: center
+.. topic:: Under Construction
 
-Scikit-TDA is currently under construction. If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
+    Scikit-TDA is currently under construction. If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
 
-
-.. toctree::
-    :maxdepth: 2
-
-    started
-    background
-    libraries
-    tutorials/index
-
+    .. image:: https://openclipart.org/image/2400px/svg_to_png/293844/under-construction_geek_man_01.png
+        :width: 200px
+        :align: center
 
 This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
 It is structured so that each package can stand alone or be used as part of the scikit-tda bundle. 
 
 In the :ref:`libraries` page, you'll find resources for each individual package including package level tutorials and API documentation. The :ref:`background` page provides brief background on the core concepts from TDA along with links to more comprehensive resources. The :ref:`tutorials` page provides a few tutorials that incorporate all of the tools.
 
+
+.. toctree::
+    :maxdepth: 2
+
+    background
+    libraries
+    tutorials/index
+
+
+
+
 Install
 ---------
 
 Installation of all libraries can be done directly from Pypi in one command.
-
 
 ::
 

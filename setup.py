@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-
 from setuptools import setup
-
-
 
 import re
 VERSIONFILE="sktda/_version.py"
@@ -13,10 +10,6 @@ if mo:
     verstr = mo.group(1)
 else:
     raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE,))
-
-
-
-
 
 with open('README.md') as f:
     long_description = f.read()
@@ -39,10 +32,6 @@ setup(name='scikit-tda',
         'scikit-learn',
         'matplotlib',
 
-         # UMAP
-        'numba',
-        'umap-learn',
-
         # Ripser
         'Cython', 
         'ripser',
@@ -57,6 +46,18 @@ setup(name='scikit-tda',
         # tadasets
         'tadasets',
       ],
+      extras_require={
+        'testing': [ # `pip install -e ".[testing]"``
+            'pytest'  
+        ],
+        'docs': [ # `pip install -e ".[docs]"``
+            'sphinx',
+            'nbsphinx',
+            'sphinx-better-theme',
+            'sphinxcontrib-fulltoc',
+            'ipython'
+        ]
+      },
       python_requires='>3.3',
       classifiers=[
         'Development Status :: 3 - Alpha',

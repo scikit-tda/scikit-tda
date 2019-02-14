@@ -21,15 +21,15 @@ html_theme_options.update({
 html_short_title = project
 htmlhelp_basename = 'scikit-tdadoc'
 
-
-
 html_context = {}
 
 # Setup library data
-import json
-with open('data/libraries.json', 'r') as f:
-    libraries = json.load(f)
+import yaml
+with open('data/libraries.yaml', 'r') as f:
+    libraries = yaml.load(f)
 
+
+# import pdb; pdb.set_trace()
 html_context['libraries'] = libraries
 
 extensions.append('rstjinja')

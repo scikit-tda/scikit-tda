@@ -7,7 +7,7 @@ gh-pages:
 	git checkout gh-pages
 
 	echo "Remove old dirs"
-	rm -rf _sources _static _modules libraries tutorials
+	rm -rf _sources _static _modules _images libraries tutorials
 
 	echo "Move new html"
 	mv -fv docs/_build/html/* .

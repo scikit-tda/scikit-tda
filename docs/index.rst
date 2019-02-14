@@ -19,8 +19,6 @@ Scikit-TDA is a home for Topological Data Analysis Python libraries intended for
 This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
 It is structured so that each package can stand alone or be used as part of the scikit-tda bundle. 
 
-In the :ref:`libraries` page, you'll find resources for each individual package including package level tutorials and API documentation. The :ref:`background` page provides brief background on the core concepts from TDA along with links to more comprehensive resources. The :ref:`tutorials` page provides a few tutorials that incorporate all of the tools.
-
 
 .. toctree::
     :maxdepth: 2
@@ -75,24 +73,12 @@ For the time being, if you would like to cite Scikit-TDA, please use the followi
     }
 
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
 .. _github: https://github.com/scikit-tda
 .. _twitter: https://twitter.com/scikit_tda
 .. _slack: https://scikit-tda.slack.com
+
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org
 .. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
 .. _TaDAsets: https://tadasets.scikit-tda.org
-.. _UMAP: http://umap.scikit-tda.org
-
-
-
+.. _Cechmate: https://cechmate.scikit-tda.org

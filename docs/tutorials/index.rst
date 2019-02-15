@@ -3,13 +3,6 @@
 Tutorials
 ===========
 
+Tutorials for ``scikit-tda`` are currently in the works. For examples and tutorials on individual projects, please see the specific documentation pages found in :ref:`libraries`. 
 
-documentation about tutorials
-
-
-.. toctree::
-    :maxdepth: 1
-
-    diagrams-on-umap
-    visualizing-cycles-with-umap
-    classification-of-persistence-images
+Check back soon for more.

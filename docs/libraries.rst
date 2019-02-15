@@ -18,6 +18,7 @@ The libraries are structured similarly to the `Tidyverse <https://tidyverse.org>
   :height: 130 px
   :alt: logo for cec
   :align: right
+  :target: https://{{ library["url"] }}
 
 {{ library["title"] }} 
 ----------------------------------------------------

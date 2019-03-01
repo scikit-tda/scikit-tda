@@ -1,0 +1,25 @@
+"""How should this package be structured?
+
+Should we expose each package at the sktda level?
+
+"""
+
+
+import sktda
+
+def test_ripser():
+    assert "ripser" in dir(sktda)
+    assert callable(sktda.ripser)
+
+def test_persim():
+    assert "PersImage" in dir(sktda)
+    assert "heat" in dir(sktda)
+    assert "sliced_wasserstein" in dir(sktda)
+    assert "plot_diagrams" in dir(sktda)
+
+def test_cechmate():
+    assert "Cech" in dir(sktda)
+    assert "Alpha" in dir(sktda)
+    assert "Rips" in dir(sktda)
+
+def test_tadasets():

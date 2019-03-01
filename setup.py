@@ -43,6 +43,9 @@ setup(name='scikit-tda',
         'pillow', # for some kmapper examples
         'kmapper',
 
+        # Cechmate
+        'cechmate',
+
         # tadasets
         'tadasets',
       ],

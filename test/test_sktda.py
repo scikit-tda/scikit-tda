@@ -21,5 +21,3 @@ def test_cechmate():
     assert "Cech" in dir(sktda)
     assert "Alpha" in dir(sktda)
     assert "Rips" in dir(sktda)
-
-def test_tadasets():

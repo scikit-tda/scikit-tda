@@ -1,6 +1,8 @@
 - title: Ripser.py
   logo: ripser.png
+  pypi: ripser
   url: ripser.scikit-tda.org
+  repo: ripser.py
   text: |4
         Ripser.py is a lean persistent homology package for Python. Building on the blazing fast C++ Ripser package as the core computational engine, Ripser.py provides an intuitive interface for
 
@@ -8,10 +10,20 @@
         - visualizing persistence diagrams,
         - computing lowerstar filtrations on images, and
         - computing representative cochains.
-  install: pip install Cython ripser
+
+
+- title: Kepler Mapper
+  logo: kepler-mapper.png
+  pypi: kmapper
+  repo: kepler-mapper
+  url: kepler-mapper.scikit-tda.org
+  text: |4
+        Kepler Mapper is a library implementing the Mapper algorithm in Python. Mapper can be used for visualization of the topological structures in a high-dimensional data point cloud data. Kepler Mapper leverages Scikit-Learn API compatible cluster and scaling algorithms to streamline the construction of the algorithm. The library also provides multiple visualization tools built on D3.js or Plotly.
 
 - title: Persim
   logo: persim.png
+  pypi: persim
+  repo: persim
   url: persim.scikit-tda.org
   text: |4
         Once diagrams are constructed, the Persim package comes into play. 
@@ -21,17 +33,10 @@
         - Diagram distances (Bottleneck distance, Sliced Wasserstein Kernel, Heat Kernel)
         - Diagram visualization
 
-  install: pip install persim
-
-- title: Kepler Mapper
-  logo: kepler-mapper.png
-  url: kepler-mapper.scikit-tda.org
-  text: |4
-        Kepler Mapper is a library implementing the Mapper algorithm in Python. Mapper can be used for visualization of the topological structures in a high-dimensional data point cloud data. Kepler Mapper leverages Scikit-Learn API compatible cluster and scaling algorithms to streamline the construction of the algorithm. The library also provides multiple visualization tools built on D3.js or Plotly.
-  install: pip install kmapper
-
 - title: CechMate
   logo: cechmate.png
+  pypi: cechmate
+  repo: cechmate
   url: cechmate.scikit-tda.org
   text: |4
         This library provides easy to use constructors for custom filtrations that are suitable for use with Phat. Phat currently provides a clean interface for persistence reduction algorithms for boundary matrices. This tool helps bridge the gap between data and boundary matrices. Currently, we support construction of 
@@ -41,10 +46,10 @@
         - Cech filtrations, and 
         - provide an easy interface for Phat.
 
-  install: pip install cechmate
-
 - title: TaDAsets
+  pypi: tadasets
   logo: tadasets.png
+  repo: tadasets
   url: tadasets.scikit-tda.org
   text: |4
         This package provides some nice utilities for creating and loading data sets that are useful for Topological Data Analysis. Currently, we provide various synthetic data sets with particular topological features and various levels of noise and dimension. Currently includes 
@@ -53,4 +58,3 @@
         - torus, 
         - swiss rolls, and 
         - figure 8s.
-  install: pip install tadasets

@@ -2,7 +2,7 @@
 .. _background:
 
 
-Background
+Theory
 ============
 
 

@@ -5,7 +5,13 @@ Libraries
 
 Scikit-TDA provides a complete suite of TDA tools designed for academic or industry uses. 
 
-The libraries are structured similarly to the `Tidyverse <https://tidyverse.org>`_ in that each package can stand alone, can be installed individually, but adheres to the design principles of the library. The most benefit comes from using all of them together. You'll notice in many of the examples and notebooks that often multiple libraries are used together.
+To install the entire suite
+
+.. code:: python
+
+  >>> pip install scikit-tda
+
+Below, you'll find information on each individual package, along with resources to explore more. Each package is well tested, well documented, easy to install, and open for contributions. If you find any bugs in the code or documentation, please let us know on `github <https://github.com/scikit-tda>`_
 
 
 {% for library in libraries %}
@@ -24,6 +30,16 @@ The libraries are structured similarly to the `Tidyverse <https://tidyverse.org>
 ----------------------------------------------------
 
 
+.. image:: https://badge.fury.io/py/{{ library["pypi" ]}}.svg
+  :target: https://badge.fury.io/py/{{ library["pypi" ]}}
+.. image:: https://pypip.in/download/{{ library["pypi"] }}/badge.svg
+  :target: https://pypi.python.org/pypi/{{ library["pypi"] }}/
+.. image:: https://travis-ci.org/scikit-tda/{{ library["repo"] }}.svg?branch=master
+  :target: https://travis-ci.org/scikit-tda/{{ library["repo"] }}
+.. image:: https://codecov.io/gh/scikit-tda/{{ library["repo"] }}/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/scikit-tda/{{ library["repo"] }}
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+  :target: https://opensource.org/licenses/MIT)
 
 
 .. container:: 
@@ -36,16 +52,10 @@ The libraries are structured similarly to the `Tidyverse <https://tidyverse.org>
 
   .. code:: python
 
-    >>> {{ library["install"] }}
+    >>> pip install {{ library["pypi"] }}
         
-  Check out complete documentation for {{ library["title"] }} at `{{ library["url"] }} <https://{{ library["url"] }}>`_.
+  Check out complete documentation for {{ library["title"] }} at `{{ library["url"] }} <https://{{ library["url"] }}>`_ and the source code at `github.com/scikit-tda/{{ library["repo"] }} <https://github.com/scikit-tda/{{ library["repo"] }}>`_
 
 
 {% endfor %}
 
-
-{% for library in libraries %}
-
-
-
-{% endfor %}

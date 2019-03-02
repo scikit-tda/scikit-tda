@@ -23,5 +23,5 @@ def test_cechmate():
     assert "Rips" in dir(sktda)
 
 def test_tadasets():
-    assert "dsphere" in dir(sktda)
-    assert "swiss_roll" in dir(sktda)
+    assert "dsphere" in dir(sktda.tadasets)
+    assert "swiss_roll" in dir(sktda.tadasets)

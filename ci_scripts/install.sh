@@ -50,7 +50,7 @@ if [[ "$DISTRIB" == "conda" ]]; then
 
 
 else
-  pip3 install Cython
+  pip3 install Cython pybind11
   pip3 install .
   pip3 install pytest-cov
 fi

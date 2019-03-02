@@ -47,6 +47,10 @@ cache:
     directories:
         # Cache for pip, mostly to speed up matplotlib install
         - $HOME/.cache/pip
+        - $HOME/Library/Caches/Homebrew
+
+before_cache:
+    - brew cleanup
 
 script:
   - pytest --cov sktda

@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.append(os.path.abspath('extensions'))
 from sktda import __version__
-from theme_settings import *
+from sktda_docs_config import *
 
 project = 'scikit-tda'
 copyright = '2019, Nathaniel Saul'
@@ -16,6 +16,7 @@ html_theme_options.update({
   # Google Analytics info
   'ga_ua': 'UA-124965309-1',
   'ga_domain': '',
+  'gh_url': 'scikit-tda'
 })
 
 html_short_title = project

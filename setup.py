@@ -54,11 +54,8 @@ setup(name='scikit-tda',
             'pytest'  
         ],
         'docs': [ # `pip install -e ".[docs]"``
-            'sphinx',
-            'nbsphinx',
-            'sphinx-better-theme',
-            'sphinxcontrib-fulltoc',
-            'ipython'
+            'sktda_docs_config',
+            'pyyaml'
         ]
       },
       python_requires='>3.3',

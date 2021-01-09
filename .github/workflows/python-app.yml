@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest-cov 
+        pip install flake8 pytest-cov pybind11
         pip install -e ".[testing]"
     - name: Lint with flake8
       run: |
@@ -35,7 +35,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --cov kmapper
+        pytest --cov sktda
     - name: Upload coverage results
       run: |
         bash <(curl -s https://codecov.io/bash)

@@ -44,6 +44,8 @@ setup(name='scikit-tda',
         'kmapper',
 
         # Cechmate
+        'pybind11',
+        'phat',
         'cechmate',
 
         # tadasets

@@ -17,11 +17,6 @@ def test_persim():
     assert "sliced_wasserstein" in dir(sktda)
     assert "plot_diagrams" in dir(sktda)
 
-def test_cechmate():
-    assert "Cech" in dir(sktda)
-    assert "Alpha" in dir(sktda)
-    assert "Rips" in dir(sktda)
-
 def test_tadasets():
     assert "dsphere" in dir(sktda.tadasets)
     assert "swiss_roll" in dir(sktda.tadasets)

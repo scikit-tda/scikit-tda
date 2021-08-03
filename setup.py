@@ -18,7 +18,7 @@ setup(name='scikit-tda',
       version=verstr,
       description='Topological Data Analysis for humans',
       long_description=long_description,
-      long_description_content_type="text/markdown",	
+      long_description_content_type="text/markdown",
       author='Nathaniel Saul, Chris Tralie',
       author_email='nathaniel.saul@wsu.edu, chris.tralie@gmail.com',
       url='https://github.com/scikit-tda/scikit-tda',
@@ -27,13 +27,13 @@ setup(name='scikit-tda',
       include_package_data=True,
       install_requires=[
         # Common requirements
-        'numpy', 
-        'scipy', 
+        'numpy',
+        'scipy',
         'scikit-learn',
         'matplotlib',
 
         # Ripser
-        'Cython', 
+        'Cython',
         'ripser',
 
         # Persim
@@ -43,17 +43,12 @@ setup(name='scikit-tda',
         'pillow', # for some kmapper examples
         'kmapper',
 
-        # Cechmate
-        'pybind11',
-        'phat',
-        'cechmate',
-
         # tadasets
         'tadasets',
       ],
       extras_require={
         'testing': [ # `pip install -e ".[testing]"``
-            'pytest'  
+            'pytest'
         ],
         'docs': [ # `pip install -e ".[docs]"``
             'sktda_docs_config',
@@ -74,6 +69,8 @@ setup(name='scikit-tda',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
       ],
       keywords='topology data analysis, algebraic topology, unsupervised learning, persistent homology, persistence images, persistence diagrams, uniform manifold approximation and projection, sheaf theory, mapper, data visualization'
      )

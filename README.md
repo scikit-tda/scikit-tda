@@ -13,7 +13,7 @@ For complete documentation please checkout [scikit-tda.org](https://scikit-tda.o
 
 # Contact 
 
-If you would like to contribute, please reach out to us on [github](https://github.com/scikit-tda), [twitter](https://twitter.com/scikit_tda) or on [Slack](https://scikit-tda.slack.com).
+If you would like to contribute, please reach out to us on [github](https://github.com/scikit-tda), [twitter](https://twitter.com/scikit_tda) oron [Slack](https://scikit-tda.slack.com).
 
 
 # Setup

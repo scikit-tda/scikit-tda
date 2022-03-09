@@ -1,12 +1,12 @@
 
 |DOI| |Pypi| |Downloads|
 
-Scikit-TDA is a home for Topological Data Analysis Python libraries intended for non-topologists. This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable. 
+Scikit-TDA is a home for Topological Data Analysis Python libraries intended for non-topologists. This project aims to provide a curated library of TDA Python tools that are widely usable and easily approachable.
 
-The structure of these libraries is inspired by the `Tidyverse <https://tidyverse.org>`_ in that each package can stand alone and can be installed individually but each adheres to the same design principles. Further, the most benefit comes from using all of them together. You'll notice that in many of the examples and notebooks, multiple libraries are used together. 
+The structure of these libraries is inspired by the `Tidyverse <https://tidyverse.org>`_ in that each package can stand alone and can be installed individually but each adheres to the same design principles. Further, the most benefit comes from using all of them together. You'll notice that in many of the examples and notebooks, multiple libraries are used together.
 
-This project is entirely a work in progress and still in an early phase. 
-We hope to assemble an ecosystem of TDA libraries that is approachable to people outside the field of Algebraic Topology, complete with documentation, notebooks, and examples to get you up to speed.  
+This project is entirely a work in progress and still in an early phase.
+We hope to assemble an ecosystem of TDA libraries that is approachable to people outside the field of Algebraic Topology, complete with documentation, notebooks, and examples to get you up to speed.
 
 If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
 
@@ -24,7 +24,7 @@ Installation of all libraries can be done directly from Pypi in one command.
 Contact
 ----------
 
-If you would like to contribute and have ideas for how to do so, please reach out! 
+If you would like to contribute and have ideas for how to do so, please reach out!
 You can join us at `scikit-tda.slack.com` or follow us on twitter `@scikit_tda <https://twitter.com/scikit_tda>`_.
 If you have any issues or confusion while using the library, please let us know with a github_ issue. We will try to respond quickly.
 
@@ -69,6 +69,13 @@ This package is licensed with the MIT license.
     theory
     libraries
     tutorials/index
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Tutorials
+
+    notebooks/scikit-tda Tutorial
 
 
 

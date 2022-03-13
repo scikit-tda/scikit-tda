@@ -68,10 +68,10 @@ This package is licensed with the MIT license.
 
     theory
     libraries
-    tutorials/index
+    
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :hidden:
     :caption: Tutorials
 

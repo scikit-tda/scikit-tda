@@ -11,7 +11,10 @@ To install the entire suite
 
   >>> pip install scikit-tda
 
-Below, you'll find information on each individual package, along with resources to explore more. Each package is well tested, well documented, easy to install, and open for contributions. If you find any bugs in the code or documentation, please let us know on `github <https://github.com/scikit-tda>`_
+Below, you'll find information on each individual package, along with resources
+to explore more. Each package is well tested, well documented, easy to install,
+and open for contributions. If you find any bugs in the code or documentation,
+please let us know on `github <https://github.com/scikit-tda>`_.
 
 
 {% for library in libraries %}
@@ -32,10 +35,8 @@ Below, you'll find information on each individual package, along with resources 
 
 .. image:: https://badge.fury.io/py/{{ library["pypi" ]}}.svg
   :target: https://badge.fury.io/py/{{ library["pypi" ]}}
-.. image:: https://pypip.in/download/{{ library["pypi"] }}/badge.svg
+.. image:: https://img.shields.io/pypi/dm/{{ library["pypi"] }}
   :target: https://pypi.python.org/pypi/{{ library["pypi"] }}/
-.. image:: https://travis-ci.org/scikit-tda/{{ library["repo"] }}.svg?branch=master
-  :target: https://travis-ci.org/scikit-tda/{{ library["repo"] }}
 .. image:: https://codecov.io/gh/scikit-tda/{{ library["repo"] }}/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/scikit-tda/{{ library["repo"] }}
 .. image:: https://img.shields.io/badge/License-MIT-yellow.svg
@@ -54,7 +55,10 @@ Below, you'll find information on each individual package, along with resources 
 
     >>> pip install {{ library["pypi"] }}
         
-  Check out complete documentation for {{ library["title"] }} at `{{ library["url"] }} <https://{{ library["url"] }}>`_ and the source code at `github.com/scikit-tda/{{ library["repo"] }} <https://github.com/scikit-tda/{{ library["repo"] }}>`_
+  Check out complete documentation for {{ library["title"] }} at `{{
+  library["url"] }} <https://{{ library["url"] }}>`_ and the source code at
+  `github.com/scikit-tda/{{ library["repo"] }}
+  <https://github.com/scikit-tda/{{ library["repo"] }}>`_.
 
 
 {% endfor %}

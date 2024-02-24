@@ -1,5 +1,5 @@
-from ripser import *
-from persim import *
+import ripser
+import persim
 
 import tadasets
 

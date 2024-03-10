@@ -81,7 +81,7 @@ This package is licensed with the MIT license.
 
 .. |DOI| image:: https://zenodo.org/badge/129452930.svg
   :target: https://zenodo.org/badge/latestdoi/129452930
-.. |Pypi| image:: https://badge.fury.io/py/scikit-tda.svg
+.. |Pypi| image:: https://img.shields.io/pypi/v/scikit-tda
   :target: https://badge.fury.io/py/scikit-tda
 .. |Downloads| image:: https://img.shields.io/pypi/dm/scikit-tda
   :target: https://pypi.org/project/scikit-tda/

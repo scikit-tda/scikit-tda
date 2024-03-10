@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/129452930.svg)](https://zenodo.org/badge/latestdoi/129452930)
-[![PyPI](https://badge.fury.io/py/scikit-tda.svg)](https://badge.fury.io/py/scikit-tda)
+![PyPI - Version](https://img.shields.io/pypi/v/scikit-tda)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/scikit-tda)
 
 Scikit-TDA is a home for Topological Data Analysis Python libraries intended for non-topologists.

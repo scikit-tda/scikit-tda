@@ -25,7 +25,11 @@ Contact
 ----------
 
 If you would like to contribute and have ideas for how to do so, please reach out!
-You can join us at `scikit-tda.slack.com` or follow us on twitter `@scikit_tda <https://twitter.com/scikit_tda>`_.
+If you would like to contribute, please reach out to us on
+[github](https://github.com/scikit-tda) by starting a [discussion
+topic](https://github.com/orgs/scikit-tda/discussions), [creating an
+issue](https://github.com/scikit-tda/scikit-tda/issues), or reaching out on
+[twitter](https://twitter.com/scikit_tda).
 If you have any issues or confusion while using the library, please let us know with a github_ issue. We will try to respond quickly.
 
 

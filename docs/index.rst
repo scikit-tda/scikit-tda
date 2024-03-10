@@ -8,7 +8,10 @@ The structure of these libraries is inspired by the `Tidyverse <https://tidyvers
 This project is entirely a work in progress and still in an early phase.
 We hope to assemble an ecosystem of TDA libraries that is approachable to people outside the field of Algebraic Topology, complete with documentation, notebooks, and examples to get you up to speed.
 
-If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
+If you would like to contribute, please reach out to us on
+github_ by starting a `discussion topic <https://github.com/orgs/scikit-tda/discussions>`_, 
+`creating an issue <https://github.com/scikit-tda/scikit-tda/issues>`_, or reaching out on
+twitter_.
 
 
 Install
@@ -25,11 +28,6 @@ Contact
 ----------
 
 If you would like to contribute and have ideas for how to do so, please reach out!
-If you would like to contribute, please reach out to us on
-[github](https://github.com/scikit-tda) by starting a [discussion
-topic](https://github.com/orgs/scikit-tda/discussions), [creating an
-issue](https://github.com/scikit-tda/scikit-tda/issues), or reaching out on
-[twitter](https://twitter.com/scikit_tda).
 If you have any issues or confusion while using the library, please let us know with a github_ issue. We will try to respond quickly.
 
 
@@ -92,7 +90,6 @@ This package is licensed with the MIT license.
 
 .. _github: https://github.com/scikit-tda
 .. _twitter: https://twitter.com/scikit_tda
-.. _slack: https://scikit-tda.slack.com
 
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org

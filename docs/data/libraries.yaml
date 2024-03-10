@@ -38,11 +38,11 @@
   repo: dreimac
   url: dreimac.scikit-tda.org
   text: |4
-      DREiMac is a library for topological data coordinatization, visualization,
-      and dimensionality reduction. Currently, DREiMac is able to find
-      topology-preserving representations of point clouds taking values in the
-      circle, in higher dimensional tori, in the real and complex projective space,
-      and in lens spaces.
+        DREiMac is a library for topological data coordinatization, visualization,
+        and dimensionality reduction. Currently, DREiMac is able to find
+        topology-preserving representations of point clouds taking values in the
+        circle, in higher dimensional tori, in the real and complex projective space,
+        and in lens spaces.
 
 - title: CechMate
   logo: cechmate.png

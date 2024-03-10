@@ -93,5 +93,6 @@ This package is licensed with the MIT license.
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org
 .. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
+.. _DREiMac: http://dreimac.scikit-tda.org
 .. _TaDAsets: https://tadasets.scikit-tda.org
 .. _Cechmate: https://cechmate.scikit-tda.org

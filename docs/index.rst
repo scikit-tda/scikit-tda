@@ -8,7 +8,10 @@ The structure of these libraries is inspired by the `Tidyverse <https://tidyvers
 This project is entirely a work in progress and still in an early phase.
 We hope to assemble an ecosystem of TDA libraries that is approachable to people outside the field of Algebraic Topology, complete with documentation, notebooks, and examples to get you up to speed.
 
-If you would like to contribute, please reach out to us on github_, twitter_ or on slack_.
+If you would like to contribute, please reach out to us on
+github_ by starting a `discussion topic <https://github.com/orgs/scikit-tda/discussions>`_, 
+`creating an issue <https://github.com/scikit-tda/scikit-tda/issues>`_, or reaching out on
+twitter_.
 
 
 Install
@@ -25,7 +28,6 @@ Contact
 ----------
 
 If you would like to contribute and have ideas for how to do so, please reach out!
-You can join us at `scikit-tda.slack.com` or follow us on twitter `@scikit_tda <https://twitter.com/scikit_tda>`_.
 If you have any issues or confusion while using the library, please let us know with a github_ issue. We will try to respond quickly.
 
 
@@ -81,17 +83,17 @@ This package is licensed with the MIT license.
 
 .. |DOI| image:: https://zenodo.org/badge/129452930.svg
   :target: https://zenodo.org/badge/latestdoi/129452930
-.. |Pypi| image:: https://badge.fury.io/py/scikit-tda.svg
+.. |Pypi| image:: https://img.shields.io/pypi/v/scikit-tda
   :target: https://badge.fury.io/py/scikit-tda
 .. |Downloads| image:: https://img.shields.io/pypi/dm/scikit-tda
   :target: https://pypi.org/project/scikit-tda/
 
 .. _github: https://github.com/scikit-tda
 .. _twitter: https://twitter.com/scikit_tda
-.. _slack: https://scikit-tda.slack.com
 
 .. _Ripser: http://ripser.scikit-tda.org
 .. _Persim: http://persim.scikit-tda.org
 .. _Kepler-Mapper: http://kepler-mapper.scikit-tda.org
+.. _DREiMac: http://dreimac.scikit-tda.org
 .. _TaDAsets: https://tadasets.scikit-tda.org
 .. _Cechmate: https://cechmate.scikit-tda.org

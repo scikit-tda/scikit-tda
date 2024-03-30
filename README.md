@@ -8,7 +8,7 @@ This project aims to provide a curated library of TDA Python tools that are wide
 
 # Documentation
 
-For complete documentation please checkout [scikit-tda.org](https://scikit-tda.org).
+For complete documentation please checkout [docs.scikit-tda.org](https://docs.scikit-tda.org/en/latest/).
 
 # Contact
 

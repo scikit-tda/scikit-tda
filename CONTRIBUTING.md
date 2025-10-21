@@ -37,7 +37,7 @@ would install the core project dependencies as well as those listed in the `docs
 We attempt (or are in the process of) maintaining changelogs for each project in scikit-tda. 
 As the code evolves, this file should be updated with information about new features added, 
 bug fixes, and deprecations. Changelogs will be formatted according to the 
-[Keep a changelog](https://keepachangelog.com/en/1.0.0/) with entries indexed on date and version number. 
+[Keep a changelog](https://keepachangelog.com/en/1.0.0/) standard with entries indexed on date and version number. 
 
 Version numbers are stored in either `src/<package_name>/_version.py` or 
 `<package_name>/_version.py` within each package. We 
@@ -75,13 +75,14 @@ If you add features or change APIs, please update the documentation and add or u
 
 ## Testing
 
-We use `pytest` to verify (or attempt to) correctness. A good PR should also include unit tests which 
+We use `pytest` to verify (or attempt to verify) correctness. A good PR should also include unit tests which 
 come as close as possible to covering the added lines of code. Tests are stored in the `test/` directory
 and can be run by executing `pytest` from the command line within the directory. 
 
 ## Continuous Integration (CI)
 
-All PRs are checked for lint, tests, and documentation builds via CI. Please ensure your code passes all checks before requesting review.
+All PRs are checked for lint, tests, and documentation builds via CI. These may or may not run automatically. If
+they don't run, a maintainer can run them manually. Please ensure your code passes all checks before requesting review.
 
 ## Contact & Help
 

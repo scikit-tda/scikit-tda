@@ -22,13 +22,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      - uses: astral-sh/ruff-action@v4.10
+      - uses: astral-sh/ruff-action@v4.1.0
         with:
           args: "format --check"
           src: "sktda/"
           version: "0.16.1"
 
-      - uses: astral-sh/ruff-action@v4.10
+      - uses: astral-sh/ruff-action@v4.1.0
         with:
           args: "check"
           src: "sktda/"

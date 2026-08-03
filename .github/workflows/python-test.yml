@@ -10,6 +10,28 @@ on:
     branches: [master]
 
 jobs:
+  lint_and_format_check_with_ruff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/ruff-action@v4.10
+        with:
+          args: "format --check"
+          src: "sktda/"
+          version: "0.16.1"
+
+      - uses: astral-sh/ruff-action@v4.10
+        with:
+          args: "check"
+          src: "sktda/"
+          version: "0.16.1"
   test:
     runs-on: ubuntu-latest
     strategy:

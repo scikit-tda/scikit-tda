@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
 import os
 import sys
+
 import yaml
 
 sys.path.insert(0, os.path.abspath("."))
 sys.path.append(os.path.abspath("extensions"))
-from sktda import __version__
 from sktda_docs_config import *
+
+from sktda import __version__
 
 project = "scikit-tda"
 copyright = "2019, Nathaniel Saul"

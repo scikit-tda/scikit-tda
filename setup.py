@@ -4,13 +4,14 @@ import re
 from setuptools import setup
 
 VERSIONFILE = "sktda/_version.py"
-verstrline = open(VERSIONFILE, "rt").read()
+with open(VERSIONFILE, "rt") as f:
+    verstrline = f.read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.MULTILINE)
 if mo:
     verstr = mo.group(1)
 else:
-    raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE,))
+    raise RuntimeError(f"Unable to find version string in {VERSIONFILE}.")
 
 with open("README.md") as f:
     long_description = f.read()
